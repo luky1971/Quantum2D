@@ -14,21 +14,11 @@
 	limitations under the License.
 */
 
-#ifndef Q_RIGID_BODY_2D_H
-#define Q_RIGID_BODY_2D_H
+#include "Q_Rigidbody2D.h"
 
-#include "D_Vector2i.h"
+Quantum2D::Rigidbody2D::Rigidbody2D(unsigned long body_id, unsigned long transform_index) : velocity(), body_id(body_id), transform_index(transform_index) {}
 
-namespace Quantum2D {
-	class RigidBody2D {
-		public:
-		Diamond::Vector2i velocity;
-		
-		RigidBody2D(int transform_index);
-		
-		private:
-		int transform_index;
-	};
+
+void Quantum2D::Rigidbody2D::update(int delta_ms) {
+	//
 }
-
-#endif /* Q_RIGID_BODY_2D_H */
