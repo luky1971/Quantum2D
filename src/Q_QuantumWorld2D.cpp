@@ -18,10 +18,10 @@
 
 namespace Quantum2D {
 	namespace QuantumWorld2D {
-		static std::vector<unsigned long> trans_index_stack = std::vector<unsigned long>();
+		static std::vector<transform2_id> trans_id_stack = std::vector<transform2_id>();
 		
 		static std::vector<unsigned long> body_id_index_map = std::vector<unsigned long>();
-		static std::vector<unsigned long> body_id_stack = std::vector<unsigned long>();
+		static std::vector<body2d_id> body_id_stack = std::vector<body2d_id>();
 	}
 }
 
@@ -29,14 +29,14 @@ std::vector<Diamond::Transform2i> Quantum2D::QuantumWorld2D::transforms = std::v
 std::vector<Quantum2D::Rigidbody2D> Quantum2D::QuantumWorld2D::bodies = std::vector<Quantum2D::Rigidbody2D>();
 
 
-Quantum2D::Rigidbody2D *Quantum2D::QuantumWorld2D::getRigidbody(unsigned long body_id) {
-	return &bodies[body_id_index_map[body_id]];
+Quantum2D::Rigidbody2D *Quantum2D::QuantumWorld2D::getRigidbody(body2d_id body) {
+	return &bodies[body_id_index_map[body]];
 }
 
-unsigned long Quantum2D::QuantumWorld2D::genTransform() {
-	if (trans_index_stack.size() != 0) {
-		unsigned long index = trans_index_stack.back();
-		trans_index_stack.pop_back();
+transform2_id Quantum2D::QuantumWorld2D::genTransform() {
+	if (trans_id_stack.size() != 0) {
+		transform2_id index = trans_id_stack.back();
+		trans_id_stack.pop_back();
 		transforms[index].reset();
 		return index;
 	}
@@ -46,37 +46,37 @@ unsigned long Quantum2D::QuantumWorld2D::genTransform() {
 	}
 }
 
-void Quantum2D::QuantumWorld2D::freeTransform(unsigned long index) {
-	trans_index_stack.push_back(index);
+void Quantum2D::QuantumWorld2D::freeTransform(transform2_id index) {
+	trans_id_stack.push_back(index);
 }
 
-unsigned long Quantum2D::QuantumWorld2D::genRigidbody(unsigned long transform_index) {
-	unsigned long body_id;
+body2d_id Quantum2D::QuantumWorld2D::genRigidbody(transform2_id transform) {
+	body2d_id body;
 	if (body_id_stack.size() != 0) {
-		body_id = body_id_stack.back();
+		body = body_id_stack.back();
 		body_id_stack.pop_back();
-		body_id_index_map[body_id] = bodies.size();
+		body_id_index_map[body] = bodies.size();
 	}
 	else {
-		body_id = body_id_index_map.size();
+		body = body_id_index_map.size();
 		body_id_index_map.push_back(bodies.size());
 	}
-	bodies.push_back(Rigidbody2D(body_id, transform_index));
-	return body_id;
+	bodies.push_back(Rigidbody2D(body, transform));
+	return body;
 }
 
-void Quantum2D::QuantumWorld2D::freeRigidbody(unsigned long body_id) {
-	unsigned long index = body_id_index_map[body_id];
+void Quantum2D::QuantumWorld2D::freeRigidbody(body2d_id body) {
+	unsigned long index = body_id_index_map[body];
 	if (index < bodies.size() - 1) { // If in middle of vector, replace it with last element in vector
 		bodies[index] = bodies.back();
 		body_id_index_map[bodies[index].body_id] = index;
 	}
 	bodies.pop_back();
-	body_id_stack.push_back(body_id);
+	body_id_stack.push_back(body);
 }
 
 
-void Quantum2D::QuantumWorld2D::step(int delta_ms) {
+void Quantum2D::QuantumWorld2D::step(int16_t delta_ms) {
 	for (std::vector<Rigidbody2D>::iterator i = bodies.begin(); i != bodies.end(); i++) {
 		i->update(delta_ms);
 	}

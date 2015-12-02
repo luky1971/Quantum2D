@@ -19,21 +19,24 @@
 
 #include "D_Vector2i.h"
 
+#include "Q_typedefs.h"
+
 namespace Quantum2D {
 	class Rigidbody2D {
 		public:
 		
-		unsigned long body_id, transform_index;
+		body2d_id body_id;
+		transform2_id transform;
 		
 		
 		Diamond::Vector2i velocity;
 		
 		
-		Rigidbody2D(unsigned long body_id, unsigned long transform_index);
+		Rigidbody2D(body2d_id body_id, transform2_id transform);
 		
 		
-		void update(int delta_ms);
+		void update(int16_t delta_ms);
 	};
 }
 
-#endif /* Q_RIGIDBODY_2D_H */
+#endif // Q_RIGIDBODY_2D_H

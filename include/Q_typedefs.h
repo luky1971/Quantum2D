@@ -14,11 +14,12 @@
 	limitations under the License.
 */
 
-#include "Q_Rigidbody2D.h"
+#ifndef Q_TYPEDEFS_H
+#define Q_TYPEDEFS_H
 
-Quantum2D::Rigidbody2D::Rigidbody2D(body2d_id body_id, transform2_id transform) : velocity(), body_id(body_id), transform(transform) {}
+#include <stdint.h>
 
+typedef unsigned long transform2_id;
+typedef unsigned long body2d_id;
 
-void Quantum2D::Rigidbody2D::update(int16_t delta_ms) {
-	//
-}
+#endif // Q_TYPEDEFS_H
