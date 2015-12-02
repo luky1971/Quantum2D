@@ -1,5 +1,8 @@
 /android-project
 
+# Builds
+*.o
+
 # Exclude visual studio stuff
 *.sln
 *.vcxproj
