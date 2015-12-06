@@ -8,7 +8,7 @@ BUILD=lib
 DUTILS=extern/DiamondUtils
 
 $(BUILD)/$(TARGET): $(BUILD)/Q_QuantumWorld2D.o $(BUILD)/Q_Rigidbody2D.o
-	ar rcs $(BUILD)/$(TARGET) $(BUILD)/Q_QuantumWorld2D.o $(BUILD)/Q_Rigidbody2D.o
+	ar rcs $(BUILD)/$(TARGET) $(BUILD)/Q_QuantumWorld2D.o $(BUILD)/Q_Rigidbody2D.o && rm -f $(BUILD)/*.o
 
 $(BUILD)/Q_QuantumWorld2D.o: $(SRC)/Q_QuantumWorld2D.cpp $(INCLUDE)/Q_QuantumWorld2D.h
 	$(CXX) -o $(BUILD)/Q_QuantumWorld2D.o -c $(SRC)/Q_QuantumWorld2D.cpp -I$(INCLUDE) -I$(DUTILS)/include
