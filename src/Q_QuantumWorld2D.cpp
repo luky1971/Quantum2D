@@ -19,19 +19,14 @@
 namespace Quantum2D {
 	namespace QuantumWorld2D {
 		static std::vector<transform2_id> trans_id_stack = std::vector<transform2_id>();
-		
-		static std::vector<unsigned long> body_id_index_map = std::vector<unsigned long>();
 		static std::vector<body2d_id> body_id_stack = std::vector<body2d_id>();
 	}
 }
 
 std::vector<Diamond::Transform2i> Quantum2D::QuantumWorld2D::transforms = std::vector<Diamond::Transform2i>();
 std::vector<Quantum2D::Rigidbody2D> Quantum2D::QuantumWorld2D::bodies = std::vector<Quantum2D::Rigidbody2D>();
+std::vector<unsigned long> Quantum2D::QuantumWorld2D::body_id_index_map = std::vector<unsigned long>();
 
-
-Quantum2D::Rigidbody2D *Quantum2D::QuantumWorld2D::getRigidbody(body2d_id body) {
-	return &bodies[body_id_index_map[body]];
-}
 
 transform2_id Quantum2D::QuantumWorld2D::genTransform() {
 	if (trans_id_stack.size() != 0) {
