@@ -18,8 +18,9 @@
 #define Q_TYPEDEFS_H
 
 #include <stdint.h>
+#include "D_typedefs.h"
 
-typedef unsigned long transform2_id;
-typedef unsigned long body2d_id;
+typedef t_index transform2_id;
+typedef t_index body2d_id;
 
 #endif // Q_TYPEDEFS_H
