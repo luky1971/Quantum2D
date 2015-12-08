@@ -25,7 +25,7 @@ namespace Quantum2D {
 
 std::vector<Diamond::Transform2i> Quantum2D::QuantumWorld2D::transforms = std::vector<Diamond::Transform2i>();
 std::vector<Quantum2D::Rigidbody2D> Quantum2D::QuantumWorld2D::bodies = std::vector<Quantum2D::Rigidbody2D>();
-std::vector<unsigned long> Quantum2D::QuantumWorld2D::body_id_index_map = std::vector<unsigned long>();
+std::vector<tD_index> Quantum2D::QuantumWorld2D::body_id_index_map = std::vector<tD_index>();
 
 
 transform2_id Quantum2D::QuantumWorld2D::genTransform() {
@@ -61,7 +61,7 @@ body2d_id Quantum2D::QuantumWorld2D::genRigidbody(transform2_id transform) {
 }
 
 void Quantum2D::QuantumWorld2D::freeRigidbody(body2d_id body) {
-	unsigned long index = body_id_index_map[body];
+	tD_index index = body_id_index_map[body];
 	if (index < bodies.size() - 1) { // If in middle of vector, replace it with last element in vector
 		bodies[index] = bodies.back();
 		body_id_index_map[bodies[index].body_id] = index;
