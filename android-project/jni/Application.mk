@@ -14,8 +14,10 @@
 #	limitations under the License.
 #
 
-APP_ABI := armeabi armeabi-v7a x86
+APP_ABI := armeabi armeabi-v7a
 
 APP_MODULES := Quantum2D
 
-APP_STL := stlport_shared
+APP_STL := gnustl_shared
+
+APP_CPPFLAGS += -std=c++11

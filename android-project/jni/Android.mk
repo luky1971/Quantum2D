@@ -20,9 +20,11 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := Quantum2D
 
-LOCAL_C_INCLUDES := ../../include \
-	../../extern/DiamondUtils/include
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../include \
+	$(LOCAL_PATH)/../../extern/DiamondUtils/include
 
-LOCAL_SRC_FILES := $(wildcard ../../src/*.cpp)
+LOCAL_SRC_FILES := \
+	$(subst $(LOCAL_PATH)/,, \
+	$(wildcard $(LOCAL_PATH)/../../src/*.cpp))
 
 include $(BUILD_STATIC_LIBRARY)
