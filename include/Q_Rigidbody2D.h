@@ -17,7 +17,7 @@
 #ifndef Q_RIGIDBODY_2D_H
 #define Q_RIGIDBODY_2D_H
 
-#include "D_Vector2i.h"
+#include "D_Vector2.h"
 
 #include "Q_typedefs.h"
 
@@ -29,7 +29,7 @@ namespace Quantum2D {
 		transform2_id transform;
 		
 		
-		Diamond::Vector2i velocity;
+		Diamond::Vector2<float> velocity;
 		
 		
 		Rigidbody2D(body2d_id body_id, transform2_id transform);

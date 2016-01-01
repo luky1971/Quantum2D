@@ -23,7 +23,7 @@ namespace Quantum2D {
 	}
 }
 
-std::vector<Diamond::Transform2i> Quantum2D::QuantumWorld2D::transforms = std::vector<Diamond::Transform2i>();
+std::vector<Diamond::Transform2<int, float>> Quantum2D::QuantumWorld2D::transforms = std::vector<Diamond::Transform2<int, float>>();
 std::vector<Quantum2D::Rigidbody2D> Quantum2D::QuantumWorld2D::bodies = std::vector<Quantum2D::Rigidbody2D>();
 std::vector<tD_index> Quantum2D::QuantumWorld2D::body_id_index_map = std::vector<tD_index>();
 
@@ -36,7 +36,7 @@ transform2_id Quantum2D::QuantumWorld2D::genTransform() {
 		return index;
 	}
 	else {
-		transforms.push_back(Diamond::Transform2i());
+		transforms.push_back(Diamond::Transform2<int, float>());
 		return transforms.size() - 1;
 	}
 }

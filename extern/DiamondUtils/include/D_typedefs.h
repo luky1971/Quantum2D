@@ -19,12 +19,17 @@
 
 #include <stdint.h>
 
-typedef uint16_t tD_index;
+// time typedefs
+typedef uint32_t tD_time; // time type
+typedef int16_t tD_delta; // delta time type
 
-typedef tD_index renderobj_id;
+// ID/index typedefs
+typedef uint16_t tD_index; // array index type
+typedef tD_index tD_id; // general identification type (ex. Entity ID)
+typedef tD_id renderobj_id; // render object id type
 
 namespace Diamond {
-	const tD_index INVALID = 0xffff;
+	const tD_index INVALID = 0xffff; // represents an invalid id or array index. can't use negative if tD_index is unsigned type
 }
 
 #endif // D_TYPEDEFS_H
