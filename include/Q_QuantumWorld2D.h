@@ -27,7 +27,7 @@
 namespace Quantum2D {
 	namespace QuantumWorld2D {
 		
-		extern std::vector<Diamond::Transform2<int, float>> transforms;
+		extern std::vector<Diamond::Transform2<int, float> > transforms;
 		extern std::vector<Quantum2D::Rigidbody2D> bodies;
 
 		extern std::vector<tD_index> body_id_index_map;

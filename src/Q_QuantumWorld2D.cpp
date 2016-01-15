@@ -23,7 +23,7 @@ namespace Quantum2D {
 	}
 }
 
-std::vector<Diamond::Transform2<int, float>> Quantum2D::QuantumWorld2D::transforms = std::vector<Diamond::Transform2<int, float>>();
+std::vector<Diamond::Transform2<int, float> > Quantum2D::QuantumWorld2D::transforms = std::vector<Diamond::Transform2<int, float> >();
 std::vector<Quantum2D::Rigidbody2D> Quantum2D::QuantumWorld2D::bodies = std::vector<Quantum2D::Rigidbody2D>();
 std::vector<tD_index> Quantum2D::QuantumWorld2D::body_id_index_map = std::vector<tD_index>();
 
