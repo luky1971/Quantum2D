@@ -72,7 +72,7 @@ void Quantum2D::QuantumWorld2D::freeRigidbody(body2d_id body) {
 
 
 void Quantum2D::QuantumWorld2D::step(int16_t delta_ms) {
-	for (std::vector<Rigidbody2D>::iterator i = bodies.begin(); i != bodies.end(); i++) {
-		i->update(delta_ms);
+	for (Rigidbody2D body: bodies) {
+		body.update(delta_ms);
 	}
 }

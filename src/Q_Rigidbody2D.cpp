@@ -16,9 +16,11 @@
 
 #include "Q_Rigidbody2D.h"
 
+#include "Q_QuantumWorld2D.h"
+
 Quantum2D::Rigidbody2D::Rigidbody2D(body2d_id body_id, transform2_id transform) : velocity(), body_id(body_id), transform(transform) {}
 
 
 void Quantum2D::Rigidbody2D::update(int16_t delta_ms) {
-	//
+	QuantumWorld2D::getTransform(transform).position.add(Diamond::Vector2<int>::scalar(velocity, delta_ms));
 }
