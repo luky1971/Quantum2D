@@ -22,5 +22,5 @@ Quantum2D::Rigidbody2D::Rigidbody2D(body2d_id body_id, transform2_id transform) 
 
 
 void Quantum2D::Rigidbody2D::update(int16_t delta_ms) {
-	QuantumWorld2D::getTransform(transform).position.add(Diamond::Vector2<int>::scalar(velocity, delta_ms));
+	QuantumWorld2D::getTransform(transform).position.add(velocity * delta_ms);
 }
