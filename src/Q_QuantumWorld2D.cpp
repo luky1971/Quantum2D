@@ -23,13 +23,24 @@ namespace Quantum2D {
 	}
 }
 
-std::vector<Diamond::Transform2<int, float> > Quantum2D::QuantumWorld2D::transforms = std::vector<Diamond::Transform2<int, float> >();
-std::vector<Quantum2D::Rigidbody2D> Quantum2D::QuantumWorld2D::bodies = std::vector<Quantum2D::Rigidbody2D>();
-std::vector<tD_index> Quantum2D::QuantumWorld2D::body_id_index_map = std::vector<tD_index>();
+std::vector<Diamond::Transform2<int, float> > Quantum2D::QuantumWorld2D::transforms
+	= std::vector<Diamond::Transform2<int, float> >();
+std::vector<Quantum2D::Rigidbody2D> Quantum2D::QuantumWorld2D::bodies
+	= std::vector<Quantum2D::Rigidbody2D>();
+std::vector<std::unique_ptr<Quantum2D::Collider2D> > Quantum2D::QuantumWorld2D::colliders
+	= std::vector<std::unique_ptr<Quantum2D::Collider2D> >();
+
+std::vector<tD_index> Quantum2D::QuantumWorld2D::body_id_index_map
+	= std::vector<tD_index>();
+std::vector<tD_index> Quantum2D::QuantumWorld2D::collider_id_index_map
+	= std::vector<tD_index>();
+
+std::vector<collider2_id> Quantum2D::QuantumWorld2D::collider_id_stack
+	= std::vector<collider2_id>();
 
 
 transform2_id Quantum2D::QuantumWorld2D::genTransform() {
-	if (trans_id_stack.size() != 0) {
+	if (!trans_id_stack.empty()) {
 		transform2_id index = trans_id_stack.back();
 		trans_id_stack.pop_back();
 		transforms[index].reset();
@@ -45,9 +56,10 @@ void Quantum2D::QuantumWorld2D::freeTransform(transform2_id index) {
 	trans_id_stack.push_back(index);
 }
 
+
 body2d_id Quantum2D::QuantumWorld2D::genRigidbody(transform2_id transform) {
 	body2d_id body;
-	if (body_id_stack.size() != 0) {
+	if (!body_id_stack.empty()) {
 		body = body_id_stack.back();
 		body_id_stack.pop_back();
 		body_id_index_map[body] = bodies.size();
@@ -64,10 +76,21 @@ void Quantum2D::QuantumWorld2D::freeRigidbody(body2d_id body) {
 	tD_index index = body_id_index_map[body];
 	if (index < bodies.size() - 1) { // If in middle of vector, replace it with last element in vector
 		bodies[index] = bodies.back();
-		body_id_index_map[bodies[index].body_id] = index;
+		body_id_index_map[bodies[index].ID()] = index;
 	}
 	bodies.pop_back();
 	body_id_stack.push_back(body);
+}
+
+
+void Quantum2D::QuantumWorld2D::freeCollider(collider2_id collider) {
+	tD_index index = collider_id_index_map[collider];
+	if (index < colliders.size() - 1) {
+		colliders[index] = std::move(colliders.back());
+		collider_id_index_map[colliders[index]->ID()] = index;
+	}
+	colliders.pop_back();
+	collider_id_stack.push_back(collider);
 }
 
 
