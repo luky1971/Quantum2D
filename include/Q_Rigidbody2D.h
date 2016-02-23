@@ -27,16 +27,9 @@ namespace Quantum2D {
 		transform2_id transform;
 		Diamond::Vector2<float> velocity;
 		
-		Rigidbody2D(body2d_id my_id, transform2_id transform);
-		
-		body2d_id ID() {
-			return my_id;
-		}
+		Rigidbody2D(transform2_id transform);
 		
 		void update(int16_t delta_ms);
-		
-	private:
-		body2d_id my_id;
 	};
 }
 

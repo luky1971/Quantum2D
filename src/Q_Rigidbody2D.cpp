@@ -18,8 +18,8 @@
 
 #include "Q_QuantumWorld2D.h"
 
-Quantum2D::Rigidbody2D::Rigidbody2D(body2d_id my_id, transform2_id transform)
-	: velocity(), my_id(my_id), transform(transform) {}
+Quantum2D::Rigidbody2D::Rigidbody2D(transform2_id transform)
+	: velocity(), transform(transform) {}
 
 
 void Quantum2D::Rigidbody2D::update(int16_t delta_ms) {
