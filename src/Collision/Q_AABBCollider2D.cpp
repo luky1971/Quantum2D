@@ -16,5 +16,5 @@
 
 #include "Q_AABBCollider2D.h"
 
-Quantum2D::AABBCollider2D::AABBCollider2D(collider2_id my_id, body2d_id body, Diamond::Vector2<int> &min, Diamond::Vector2<int> &max)
-	: Quantum2D::Collider2D(my_id, body), min(min), max(max) {}
+Quantum2D::AABBCollider2D::AABBCollider2D(body2d_id body, Diamond::Vector2<int> &min, Diamond::Vector2<int> &max)
+	: Quantum2D::Collider2D(body), min(min), max(max) {}

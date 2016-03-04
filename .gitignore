@@ -1,3 +1,9 @@
 *.o
+*.d
+*.class
+*.setup
+*.db
+*.pdb
+
 *.DS_Store
 local.properties
