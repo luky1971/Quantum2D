@@ -21,6 +21,10 @@
 
 namespace Quantum2D {
 	namespace CollisionTest2D {
+        void init();
+
+        bool collide(Collider2D *a, Collider2D *b);
+
 		bool AABB2(AABBCollider2D *a, AABBCollider2D *b);
 	}
 }
