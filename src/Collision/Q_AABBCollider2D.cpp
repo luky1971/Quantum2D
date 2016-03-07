@@ -15,6 +15,15 @@
 */
 
 #include "Q_AABBCollider2D.h"
+#include "Q_QuantumWorld2D.h"
 
-Quantum2D::AABBCollider2D::AABBCollider2D(body2d_id body, Diamond::Vector2<int> &min, Diamond::Vector2<int> &max)
-	: Quantum2D::Collider2D(body), min(min), max(max) {}
+Quantum2D::AABBCollider2D::AABBCollider2D(body2d_id body, 
+                                          Diamond::Vector2<tD_pos> &origin, 
+                                          Diamond::Vector2<tD_pos> &dims)
+	: Quantum2D::Collider2D(body), origin(origin), dims(dims) {}
+
+
+void Quantum2D::AABBCollider2D::update(tD_delta delta_ms) {
+    min = QuantumWorld2D::getTransform(QuantumWorld2D::getRigidbody(body).getTransformID()).position + origin;
+    max = min + dims;
+}

@@ -16,8 +16,8 @@
 
 #include "Q_QuantumWorld2D.h"
 
-Diamond::sparsevector<Diamond::Transform2<int, float> > Quantum2D::QuantumWorld2D::transforms
-	= Diamond::sparsevector<Diamond::Transform2<int, float> >();
+Diamond::sparsevector<Diamond::Transform2<tD_pos, tD_rot> > Quantum2D::QuantumWorld2D::transforms
+	= Diamond::sparsevector<Diamond::Transform2<tD_pos, tD_rot> >();
 
 Diamond::swapvector<Quantum2D::Rigidbody2D> Quantum2D::QuantumWorld2D::bodies
 	= Diamond::swapvector<Quantum2D::Rigidbody2D>();
@@ -26,7 +26,7 @@ Diamond::swapvector<std::unique_ptr<Quantum2D::Collider2D> > Quantum2D::QuantumW
 	= Diamond::swapvector<std::unique_ptr<Quantum2D::Collider2D> >();
 
 
-void Quantum2D::QuantumWorld2D::step(int16_t delta_ms) {
+void Quantum2D::QuantumWorld2D::step(tD_delta delta_ms) {
 	for (Rigidbody2D body: bodies) {
 		body.update(delta_ms);
 	}

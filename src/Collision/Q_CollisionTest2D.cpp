@@ -17,6 +17,6 @@
 #include "Q_CollisionTest2D.h"
 
 bool Quantum2D::CollisionTest2D::AABB2(Quantum2D::AABBCollider2D *a, Quantum2D::AABBCollider2D *b) {
-	return !(a->min.x - b->max.x > 0.0f || a->min.y - b->max.y > 0.0f
-			|| b->min.x - a->max.x > 0.0f || b->min.y - a->max.y > 0.0f);
+	return !(a->getMin().x - b->getMax().x > 0.0f || a->getMin().y - b->getMax().y > 0.0f
+			|| b->getMin().x - a->getMax().x > 0.0f || b->getMin().y - a->getMax().y > 0.0f);
 }
