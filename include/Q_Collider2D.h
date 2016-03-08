@@ -20,6 +20,10 @@
 #include "Q_typedefs.h"
 
 namespace Quantum2D {
+    enum Coltype {
+        eAABB, eCIRCLE, ePOLY, eNUMCOLTYPES
+    };
+
 	class Collider2D {
 	public:
 		Collider2D(body2d_id body) : body(body) {};
