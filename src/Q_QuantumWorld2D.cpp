@@ -15,6 +15,7 @@
 */
 
 #include "Q_QuantumWorld2D.h"
+#include "Q_CollisionTest2D.h"
 
 Diamond::sparsevector<Diamond::Transform2<tD_pos, tD_rot> > Quantum2D::QuantumWorld2D::transforms
     = Diamond::sparsevector<Diamond::Transform2<tD_pos, tD_rot> >();
@@ -27,7 +28,18 @@ Diamond::swapvector<std::unique_ptr<Quantum2D::Collider2D> > Quantum2D::QuantumW
 
 
 void Quantum2D::QuantumWorld2D::step(tD_delta delta_ms) {
+    // Move rigidbodies
     for (Rigidbody2D body: bodies) {
         body.update(delta_ms);
+    }
+
+    // Test collisions
+    // TODO: broad phase testing
+    for (int i = 0; i < colliders.size() - 1; ++i) {
+        for (int j = 0; j < colliders.size(); ++j) {
+            if (CollisionTest2D::collide(colliders[i].get(), colliders[j].get())) {
+                std::cout << "Collision!" << std::endl;
+            }
+        }
     }
 }
