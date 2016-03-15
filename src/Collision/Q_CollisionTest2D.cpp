@@ -34,7 +34,7 @@ namespace Quantum2D {
     }
 }
 
-void Quantum2D::CollisionTest2D::init() {
+bool Quantum2D::CollisionTest2D::init() {
     // TODO: initialize a 2D array of function pointers to collision test functions addressed by collider types
     col_funcs[eNONE][eNONE] = colNONE;
     for (int i = eNONE + 1; i < eNUMCOLTYPES; ++i) {
@@ -43,6 +43,8 @@ void Quantum2D::CollisionTest2D::init() {
     }
     
     col_funcs[eAABB][eAABB] = colAABB2;
+    
+    return true;
 }
 
 bool Quantum2D::CollisionTest2D::collide(Collider2D *a, Collider2D *b) {

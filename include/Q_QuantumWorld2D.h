@@ -34,6 +34,11 @@ namespace Quantum2D {
         extern Diamond::swapvector<Rigidbody2D> bodies;
         extern Diamond::swapvector<std::unique_ptr<Collider2D> > colliders;
         
+        /**
+        Initializes the simulation world.
+        Returns true if initialization was successful, otherwise false.
+        */
+        bool init();
 
         /**
          Returns a reference to the transform with the given id.

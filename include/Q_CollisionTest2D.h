@@ -21,7 +21,11 @@
 
 namespace Quantum2D {
     namespace CollisionTest2D {
-        void init();
+        /**
+         Initializes the collision tester.
+         Returns true if initialization was successful, otherwise false.
+        */
+        bool init();
 
         bool collide(Collider2D *a, Collider2D *b);
 

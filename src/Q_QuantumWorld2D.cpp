@@ -27,6 +27,10 @@ Diamond::swapvector<std::unique_ptr<Quantum2D::Collider2D> > Quantum2D::QuantumW
     = Diamond::swapvector<std::unique_ptr<Quantum2D::Collider2D> >();
 
 
+bool Quantum2D::QuantumWorld2D::init() {
+    return CollisionTest2D::init();
+}
+
 void Quantum2D::QuantumWorld2D::step(tD_delta delta_ms) {
     // Move rigidbodies
     for (Rigidbody2D body: bodies) {
@@ -35,11 +39,24 @@ void Quantum2D::QuantumWorld2D::step(tD_delta delta_ms) {
 
     // Test collisions
     // TODO: broad phase testing
+    for (auto i = colliders.begin(); i != colliders.end(); ++i) {
+        i->get()->update(delta_ms);
+    }
+
     for (int i = 0; i < colliders.size() - 1; ++i) {
-        for (int j = 0; j < colliders.size(); ++j) {
+    // for (int i = 0; i < colliders.size(); ++i) {
+        /*
+        // DEBUG
+        std::cout << colliders[i]->getBodyID() << ", ";
+        AABBCollider2D *col = static_cast<AABBCollider2D*>(colliders[i].get());
+        std::cout << col->getOrigin() << "; " << col->getDims() << "; " << col->getMin() << "; " << col->getMax() << std::endl;
+        */
+        
+        for (int j = i + 1; j < colliders.size(); ++j) {
             if (CollisionTest2D::collide(colliders[i].get(), colliders[j].get())) {
                 std::cout << "Collision!" << std::endl;
             }
         }
+        
     }
 }
