@@ -18,12 +18,14 @@
 #include "Q_QuantumWorld2D.h"
 
 Quantum2D::AABBCollider2D::AABBCollider2D(body2d_id body, 
+                                          void *parent, 
+                                          std::function<void(void*)> &onCollision, 
                                           Diamond::Vector2<tD_pos> &origin, 
-                                          Diamond::Vector2<tD_pos> &dims)
-    : Quantum2D::Collider2D(eAABB, body), origin(origin), dims(dims) {}
-
+                                          Diamond::Vector2<tD_pos> &dims) 
+    : Collider2D(eAABB, body, parent, onCollision), origin(origin), dims(dims) {}
 
 void Quantum2D::AABBCollider2D::update(tD_delta delta_ms) {
+    // TODO: consider rotation!
     min = QuantumWorld2D::getTransform(QuantumWorld2D::getRigidbody(body).getTransformID()).position + origin;
     max = min + dims;
 }

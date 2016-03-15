@@ -24,7 +24,11 @@
 namespace Quantum2D {
     class AABBCollider2D : public Collider2D {
     public:
-        AABBCollider2D(body2d_id body, Diamond::Vector2<tD_pos> &origin, Diamond::Vector2<tD_pos> &dims);
+        AABBCollider2D(body2d_id body,
+                       void *parent,
+                       std::function<void(void*)> &onCollision,
+                       Diamond::Vector2<tD_pos> &origin,
+                       Diamond::Vector2<tD_pos> &dims);
 
         /**
          Get the current coordinates of this AABB's bottom left corner in world space.

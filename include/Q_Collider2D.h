@@ -17,6 +17,7 @@
 #ifndef Q_COLLIDER2D_H
 #define Q_COLLIDER2D_H
 
+#include <functional>
 #include "Q_typedefs.h"
 
 namespace Quantum2D {
@@ -26,18 +27,29 @@ namespace Quantum2D {
 
     class Collider2D {
     public:
-        Collider2D(Coltype type, body2d_id body) : type(type), body(body) {};
+        Collider2D(Coltype type, 
+                   body2d_id body, 
+                   void *parent, 
+                   std::function<void(void*)> &onCollision) 
+            : type(type), body(body), parent(parent), onCollision(onCollision) {};
+        
         virtual ~Collider2D() {};
 
         Coltype getType() const { return type; }
         
         body2d_id getBodyID() const { return body; }
+
+        void *getParent() const { return parent; }
+
+        void onCollide(Collider2D *other) { onCollision(other->getParent()); }
         
         virtual void update(tD_delta delta_ms) = 0;
 
     protected:
         Coltype type;
         body2d_id body;
+        void *parent;
+        std::function<void(void*)> onCollision;
     };
 }
 
