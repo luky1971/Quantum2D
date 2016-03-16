@@ -33,6 +33,8 @@ namespace Quantum2D {
         bool AABB2(AABBCollider2D *a, AABBCollider2D *b);
 
         bool circle2(CircleCollider *a, CircleCollider *b);
+
+        bool circleAABB(CircleCollider *a, AABBCollider2D *b);
     }
 }
 

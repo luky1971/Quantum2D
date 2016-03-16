@@ -35,6 +35,14 @@ namespace Quantum2D {
         static bool colCircle2(Collider2D *a, Collider2D *b) {
             return circle2(static_cast<CircleCollider*>(a), static_cast<CircleCollider*>(b));
         }
+
+        static bool colCircleAABB(Collider2D *a, Collider2D *b) {
+            return circleAABB(static_cast<CircleCollider*>(a), static_cast<AABBCollider2D*>(b));
+        }
+
+        static bool colAABBCircle(Collider2D *a, Collider2D *b) {
+            return circleAABB(static_cast<CircleCollider*>(b), static_cast<AABBCollider2D*>(a));
+        }
     }
 }
 
@@ -50,8 +58,8 @@ bool Quantum2D::CollisionTest2D::init() {
     col_funcs[eAABB][eAABB] = colAABB2;
     col_funcs[eCIRCLE][eCIRCLE] = colCircle2;
 
-    col_funcs[eAABB][eCIRCLE] = colNONE;
-    col_funcs[eCIRCLE][eAABB] = colNONE;
+    col_funcs[eAABB][eCIRCLE] = colAABBCircle;
+    col_funcs[eCIRCLE][eAABB] = colCircleAABB;
     
     return true;
 }
@@ -68,4 +76,28 @@ bool Quantum2D::CollisionTest2D::AABB2(Quantum2D::AABBCollider2D *a, Quantum2D::
 bool Quantum2D::CollisionTest2D::circle2(CircleCollider *a, CircleCollider *b) {
     tD_long_pos rad_tot = a->getRadius() + b->getRadius();
     return a->getWorldPos().distanceSq(b->getWorldPos()) < rad_tot * rad_tot;
+}
+
+bool Quantum2D::CollisionTest2D::circleAABB(CircleCollider *a, AABBCollider2D *b) {
+    tD_long_pos distSq = 0, diff;
+
+    if (a->getWorldPos().x < b->getMin().x) {
+        diff = b->getMin().x - a->getWorldPos().x;
+        distSq += diff * diff;
+    }
+    if (a->getWorldPos().x > b->getMax().x) {
+        diff = a->getWorldPos().x - b->getMax().x;
+        distSq += diff * diff;
+    }
+
+    if (a->getWorldPos().y < b->getMin().y) {
+        diff = b->getMin().y - a->getWorldPos().y;
+        distSq += diff * diff;
+    }
+    if (a->getWorldPos().y > b->getMax().y) {
+        diff = a->getWorldPos().y - b->getMax().y;
+        distSq += diff * diff;
+    }
+
+    return distSq < a->getRadiusSq();
 }
