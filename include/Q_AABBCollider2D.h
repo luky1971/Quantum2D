@@ -18,27 +18,16 @@
 #define Q_AABB_COLLIDER_2D_H
 
 #include "Q_Collider2D.h"
-
 #include "D_Vector2.h"
 
 namespace Quantum2D {
     class AABBCollider2D : public Collider2D {
     public:
-        AABBCollider2D(body2d_id body,
+        AABBCollider2D(transform2_id transform,
                        void *parent,
-                       std::function<void(void*)> &onCollision,
-                       Diamond::Vector2<tD_pos> &origin,
-                       Diamond::Vector2<tD_pos> &dims);
-
-        /**
-         Get the current coordinates of this AABB's bottom left corner in world space.
-        */
-        const Diamond::Vector2<tD_pos> &getMin() const { return min; }
-
-        /**
-         Get the current coordinates of this AABB's top right corner in world space.
-        */
-        const Diamond::Vector2<tD_pos> &getMax() const { return max; }
+                       std::function<void(void *other)> &onCollision,
+                       const Diamond::Vector2<tD_pos> &dims, 
+                       const Diamond::Vector2<tD_pos> &origin = Diamond::Vector2<tD_pos>(0, 0));
 
         /**
          Get the origin point of this AABB in the parent transform's local space.
@@ -51,7 +40,21 @@ namespace Quantum2D {
         Diamond::Vector2<tD_pos> &getDims() { return dims; }
 
         /**
-         Update world coordinates once per frame.
+        Get the current coordinates of this AABB's bottom left corner in world space.
+        */
+        const Diamond::Vector2<tD_pos> &getMin() const { return min; }
+
+        /**
+        Get the current coordinates of this AABB's top right corner in world space.
+        */
+        const Diamond::Vector2<tD_pos> &getMax() const { return max; }
+
+        void setOrigin(const Diamond::Vector2<tD_pos> &origin) { this->origin = origin; }
+
+        void setDims(const Diamond::Vector2<tD_pos> &dims) { this->dims = dims; }
+
+        /**
+         Update world coordinates, should call this once per frame.
         */
         void update(tD_delta delta_ms) override;
 

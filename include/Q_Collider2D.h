@@ -14,8 +14,8 @@
     limitations under the License.
 */
 
-#ifndef Q_COLLIDER2D_H
-#define Q_COLLIDER2D_H
+#ifndef Q_COLLIDER_2D_H
+#define Q_COLLIDER_2D_H
 
 #include <functional>
 #include "Q_typedefs.h"
@@ -28,29 +28,31 @@ namespace Quantum2D {
     class Collider2D {
     public:
         Collider2D(Coltype type, 
-                   body2d_id body, 
+                   transform2_id transform, 
                    void *parent, 
-                   std::function<void(void*)> &onCollision) 
-            : type(type), body(body), parent(parent), onCollision(onCollision) {};
+                   std::function<void(void *other)> &onCollision) 
+            : type(type), transform(transform), parent(parent), onCollision(onCollision) {};
         
         virtual ~Collider2D() {};
 
         Coltype getType() const { return type; }
         
-        body2d_id getBodyID() const { return body; }
+        transform2_id getTransformID() const { return transform; }
 
         void *getParent() const { return parent; }
 
         void onCollide(Collider2D *other) { onCollision(other->getParent()); }
+
+        void setColFunc(std::function<void(void *other)> &onCollision) { this->onCollision = onCollision; }
         
         virtual void update(tD_delta delta_ms) = 0;
 
     protected:
         Coltype type;
-        body2d_id body;
+        transform2_id transform;
         void *parent;
-        std::function<void(void*)> onCollision;
+        std::function<void(void *other)> onCollision;
     };
 }
 
-#endif // Q_COLLIDER2D_H
+#endif // Q_COLLIDER_2D_H

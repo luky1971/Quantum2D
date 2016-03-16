@@ -31,18 +31,27 @@ namespace Quantum2D {
         static bool colAABB2(Collider2D *a, Collider2D *b) {
             return AABB2(static_cast<AABBCollider2D*>(a), static_cast<AABBCollider2D*>(b));
         }
+
+        static bool colCircle2(Collider2D *a, Collider2D *b) {
+            return circle2(static_cast<CircleCollider*>(a), static_cast<CircleCollider*>(b));
+        }
     }
 }
 
 bool Quantum2D::CollisionTest2D::init() {
-    // TODO: initialize a 2D array of function pointers to collision test functions addressed by collider types
+    // Initialize invalid collision functions
     col_funcs[eNONE][eNONE] = colNONE;
     for (int i = eNONE + 1; i < eNUMCOLTYPES; ++i) {
         col_funcs[eNONE][i] = colNONE;
         col_funcs[i][eNONE] = colNONE;
     }
     
+    // TODO: Initialize collision functions for all collider type pairs
     col_funcs[eAABB][eAABB] = colAABB2;
+    col_funcs[eCIRCLE][eCIRCLE] = colCircle2;
+
+    col_funcs[eAABB][eCIRCLE] = colNONE;
+    col_funcs[eCIRCLE][eAABB] = colNONE;
     
     return true;
 }
@@ -54,4 +63,9 @@ bool Quantum2D::CollisionTest2D::collide(Collider2D *a, Collider2D *b) {
 bool Quantum2D::CollisionTest2D::AABB2(Quantum2D::AABBCollider2D *a, Quantum2D::AABBCollider2D *b) {
     return !(a->getMin().x - b->getMax().x > 0.0f || a->getMin().y - b->getMax().y > 0.0f
             || b->getMin().x - a->getMax().x > 0.0f || b->getMin().y - a->getMax().y > 0.0f);
+}
+
+bool Quantum2D::CollisionTest2D::circle2(CircleCollider *a, CircleCollider *b) {
+    tD_long_pos rad_tot = a->getRadius() + b->getRadius();
+    return a->getWorldPos().distanceSq(b->getWorldPos()) < rad_tot * rad_tot;
 }
