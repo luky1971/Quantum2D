@@ -26,43 +26,43 @@ namespace Quantum2D {
         CircleCollider(transform2_id transform,
                        void *parent,
                        std::function<void(void *other)> &onCollision,
-                       tD_pos radius,
-                       const Diamond::Vector2<tD_pos> &center = Diamond::Vector2<tD_pos>(0, 0));
+                       tQ_pos radius,
+                       const Diamond::Vector2<tQ_pos> &center = Diamond::Vector2<tQ_pos>(0, 0));
 
         /**
          Get the radius of this circle.
         */
-        tD_pos getRadius() const { return radius; }
+        tQ_pos getRadius() const { return radius; }
 
         /**
          Get the radius squared of this circle.
         */
-        tD_long_pos getRadiusSq() const { return radiusSq; }
+        tQ_pos getRadiusSq() const { return radiusSq; }
 
         /**
          Get the center position of this circle in the parent transform's local space.
         */
-        Diamond::Vector2<tD_pos> &getCenter() { return center; }
+        Diamond::Vector2<tQ_pos> &getCenter() { return center; }
 
         /**
          Get the current coordinates of this circle's center in world space.
         */
-        const Diamond::Vector2<tD_pos> &getWorldPos() const { return world_pos; }
+        const Diamond::Vector2<tQ_pos> &getWorldPos() const { return world_pos; }
 
-        void setRadius(tD_pos radius) { this->radius = radius; radiusSq = radius * radius; }
+        void setRadius(tQ_pos radius) { this->radius = radius; radiusSq = radius * radius; }
 
-        void setCenter(const Diamond::Vector2<tD_pos> &center) { this->center = center; }
+        void setCenter(const Diamond::Vector2<tQ_pos> &center) { this->center = center; }
 
         /**
          Update world coordinates, should call this once per frame.
         */
-        void update(tD_delta delta_ms) override;
+        void update(tQ_delta delta_ms) override;
 
     private:
-        tD_pos radius;
-        tD_long_pos radiusSq;
-        Diamond::Vector2<tD_pos> center;
-        Diamond::Vector2<tD_pos> world_pos;
+        tQ_pos radius;
+        tQ_pos radiusSq;
+        Diamond::Vector2<tQ_pos> center;
+        Diamond::Vector2<tQ_pos> world_pos;
     };
 }
 

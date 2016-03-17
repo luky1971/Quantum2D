@@ -22,6 +22,6 @@ Quantum2D::Rigidbody2D::Rigidbody2D(transform2_id transform)
     : velocity(), transform(transform) {}
 
 
-void Quantum2D::Rigidbody2D::update(tD_delta delta_ms) {
+void Quantum2D::Rigidbody2D::update(tQ_delta delta_ms) {
     QuantumWorld2D::getTransform(transform).position.add(velocity * delta_ms);
 }

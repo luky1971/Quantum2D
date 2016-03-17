@@ -74,12 +74,12 @@ bool Quantum2D::CollisionTest2D::AABB2(Quantum2D::AABBCollider2D *a, Quantum2D::
 }
 
 bool Quantum2D::CollisionTest2D::circle2(CircleCollider *a, CircleCollider *b) {
-    tD_long_pos rad_tot = a->getRadius() + b->getRadius();
+    tQ_pos rad_tot = a->getRadius() + b->getRadius();
     return a->getWorldPos().distanceSq(b->getWorldPos()) < rad_tot * rad_tot;
 }
 
 bool Quantum2D::CollisionTest2D::circleAABB(CircleCollider *a, AABBCollider2D *b) {
-    tD_long_pos distSq = 0, diff;
+    tQ_pos distSq = 0, diff;
 
     if (a->getWorldPos().x < b->getMin().x) {
         diff = b->getMin().x - a->getWorldPos().x;

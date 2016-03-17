@@ -20,11 +20,11 @@
 Quantum2D::CircleCollider::CircleCollider(transform2_id transform,
                                           void *parent,
                                           std::function<void(void *other)> &onCollision,
-                                          tD_pos radius,
-                                          const Diamond::Vector2<tD_pos> &center)
+                                          tQ_pos radius,
+                                          const Diamond::Vector2<tQ_pos> &center)
     : Collider2D(eCIRCLE, transform, parent, onCollision), 
       radius(radius), radiusSq(radius * radius), center(center) {}
 
-void Quantum2D::CircleCollider::update(tD_delta delta_ms) {
+void Quantum2D::CircleCollider::update(tQ_delta delta_ms) {
     world_pos = QuantumWorld2D::getTransform(getTransformID()).position + center;
 }

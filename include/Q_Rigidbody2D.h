@@ -29,7 +29,7 @@ namespace Quantum2D {
 
         Diamond::Vector2<float> &getVelocity() { return velocity; }
 
-        void update(tD_delta delta_ms);
+        void update(tQ_delta delta_ms);
 
     private:
         transform2_id transform;

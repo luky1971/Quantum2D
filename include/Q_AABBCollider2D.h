@@ -26,44 +26,44 @@ namespace Quantum2D {
         AABBCollider2D(transform2_id transform,
                        void *parent,
                        std::function<void(void *other)> &onCollision,
-                       const Diamond::Vector2<tD_pos> &dims, 
-                       const Diamond::Vector2<tD_pos> &origin = Diamond::Vector2<tD_pos>(0, 0));
+                       const Diamond::Vector2<tQ_num> &dims, 
+                       const Diamond::Vector2<tQ_num> &origin = Diamond::Vector2<tQ_num>(0, 0));
 
         /**
          Get the origin point of this AABB in the parent transform's local space.
         */
-        Diamond::Vector2<tD_pos> &getOrigin() { return origin; }
+        Diamond::Vector2<tQ_num> &getOrigin() { return origin; }
 
         /**
          Get the horizontal x vertical dimensions of this AABB.
         */
-        Diamond::Vector2<tD_pos> &getDims() { return dims; }
+        Diamond::Vector2<tQ_num> &getDims() { return dims; }
 
         /**
         Get the current coordinates of this AABB's bottom left corner in world space.
         */
-        const Diamond::Vector2<tD_pos> &getMin() const { return min; }
+        const Diamond::Vector2<tQ_num> &getMin() const { return min; }
 
         /**
         Get the current coordinates of this AABB's top right corner in world space.
         */
-        const Diamond::Vector2<tD_pos> &getMax() const { return max; }
+        const Diamond::Vector2<tQ_num> &getMax() const { return max; }
 
-        void setOrigin(const Diamond::Vector2<tD_pos> &origin) { this->origin = origin; }
+        void setOrigin(const Diamond::Vector2<tQ_num> &origin) { this->origin = origin; }
 
-        void setDims(const Diamond::Vector2<tD_pos> &dims) { this->dims = dims; }
+        void setDims(const Diamond::Vector2<tQ_num> &dims) { this->dims = dims; }
 
         /**
          Update world coordinates, should call this once per frame.
         */
-        void update(tD_delta delta_ms) override;
+        void update(tQ_delta delta_ms) override;
 
     private:
-        Diamond::Vector2<tD_pos> origin;
-        Diamond::Vector2<tD_pos> dims;
+        Diamond::Vector2<tQ_num> origin;
+        Diamond::Vector2<tQ_num> dims;
 
-        Diamond::Vector2<tD_pos> min;
-        Diamond::Vector2<tD_pos> max;
+        Diamond::Vector2<tQ_num> min;
+        Diamond::Vector2<tQ_num> max;
     };
 }
 

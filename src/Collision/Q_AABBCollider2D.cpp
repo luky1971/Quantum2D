@@ -20,11 +20,11 @@
 Quantum2D::AABBCollider2D::AABBCollider2D(transform2_id transform, 
                                           void *parent, 
                                           std::function<void(void *other)> &onCollision, 
-                                          const Diamond::Vector2<tD_pos> &dims, 
-                                          const Diamond::Vector2<tD_pos> &origin) 
+                                          const Diamond::Vector2<tQ_pos> &dims, 
+                                          const Diamond::Vector2<tQ_pos> &origin) 
     : Collider2D(eAABB, transform, parent, onCollision), dims(dims), origin(origin) {}
 
-void Quantum2D::AABBCollider2D::update(tD_delta delta_ms) {
+void Quantum2D::AABBCollider2D::update(tQ_delta delta_ms) {
     // TODO: consider rotation!
     min = QuantumWorld2D::getTransform(getTransformID()).position + origin;
     max = min + dims;

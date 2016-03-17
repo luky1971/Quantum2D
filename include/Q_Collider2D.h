@@ -45,7 +45,7 @@ namespace Quantum2D {
 
         void setColFunc(std::function<void(void *other)> &onCollision) { this->onCollision = onCollision; }
         
-        virtual void update(tD_delta delta_ms) = 0;
+        virtual void update(tQ_delta delta_ms) = 0;
 
     protected:
         Coltype type;
