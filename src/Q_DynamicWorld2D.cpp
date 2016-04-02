@@ -24,14 +24,14 @@ bool Quantum2D::DynamicWorld2D::init() {
 void Quantum2D::DynamicWorld2D::step(tQ_delta delta_ms) {
     // Move rigidbodies
     for (Rigidbody2D body : bodies) {
-        body.update(delta_ms);
+        getTransform(body.getTransformID()).position += (body.getVelocity() * delta_ms);
     }
 
     // --Test collisions-- //
 
     // Update colliders
     for (auto i = colliders.begin(); i != colliders.end(); ++i) {
-        (*i)->update(delta_ms);
+        (*i)->update(delta_ms, getTransform(getRigidbody((*i)->getBodyID()).getTransformID()));
     }
 
     bool col = false; // DEBUG
