@@ -20,6 +20,8 @@
 
 typedef bool(*ColFunc)(Quantum2D::Collider2D*, Quantum2D::Collider2D*);
 
+bool Quantum2D::CollisionTest2D::initialized = false;
+
 namespace Quantum2D {
     namespace CollisionTest2D {
         static ColFunc col_funcs[eNUMCOLTYPES][eNUMCOLTYPES];
@@ -47,20 +49,23 @@ namespace Quantum2D {
 }
 
 bool Quantum2D::CollisionTest2D::init() {
-    // Initialize invalid collision functions
-    col_funcs[eNONE][eNONE] = colNONE;
-    for (int i = eNONE + 1; i < eNUMCOLTYPES; ++i) {
-        col_funcs[eNONE][i] = colNONE;
-        col_funcs[i][eNONE] = colNONE;
-    }
-    
-    // TODO: Initialize collision functions for all collider type pairs
-    col_funcs[eAABB][eAABB] = colAABB2;
-    col_funcs[eCIRCLE][eCIRCLE] = colCircle2;
+    if (!initialized) {
+        // Initialize invalid collision functions
+        col_funcs[eNONE][eNONE] = colNONE;
+        for (int i = eNONE + 1; i < eNUMCOLTYPES; ++i) {
+            col_funcs[eNONE][i] = colNONE;
+            col_funcs[i][eNONE] = colNONE;
+        }
 
-    col_funcs[eAABB][eCIRCLE] = colAABBCircle;
-    col_funcs[eCIRCLE][eAABB] = colCircleAABB;
-    
+        // TODO: Initialize collision functions for all collider type pairs
+        col_funcs[eAABB][eAABB] = colAABB2;
+        col_funcs[eCIRCLE][eCIRCLE] = colCircle2;
+
+        col_funcs[eAABB][eCIRCLE] = colAABBCircle;
+        col_funcs[eCIRCLE][eAABB] = colCircleAABB;
+
+        initialized = true;
+    }
     return true;
 }
 
