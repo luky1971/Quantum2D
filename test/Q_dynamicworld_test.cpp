@@ -14,9 +14,10 @@
     limitations under the License.
 */
 
+#include "Q_DynamicWorld2D.h"
 #include "gtest/gtest.h"
 
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+TEST(DynamicWorldTest, Initializes) {
+    Quantum2D::DynamicWorld2D world;
+    ASSERT_TRUE(world.init());
 }
