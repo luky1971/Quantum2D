@@ -17,6 +17,8 @@
 #include "Q_DynamicWorld2D.h"
 #include "gtest/gtest.h"
 
+// TODO: test velocity, collisions, etc. from DynamicWorld2D interface
+
 TEST(DynamicWorldTest, Initializes) {
     Quantum2D::DynamicWorld2D world;
     ASSERT_TRUE(world.init());

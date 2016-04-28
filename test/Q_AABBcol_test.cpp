@@ -57,10 +57,8 @@ TEST(AABBColTest, OnCollides) {
     QTest::TestBody<Quantum2D::AABBCollider2D> body1(name1, 0, Diamond::Vector2<float>(10, 10));
     QTest::TestBody<Quantum2D::AABBCollider2D> body2(name2, 0, Diamond::Vector2<float>(10, 10));
     
-    body1.checkInit();
-    body2.checkInit();
-    ASSERT_EQ(body1.name, name1);
-    ASSERT_EQ(body2.name, name2);
+    body1.checkInit(body1.name);
+    body2.checkInit(body2.name);
 
     body1.mCol->onCollide(body2.mCol);
     body2.mCol->onCollide(body1.mCol);
@@ -78,22 +76,21 @@ TEST(AABBColTest, Updates) {
     Vector2<tQ_num> origin(0, 0);
 
     QTest::TestBody<Quantum2D::AABBCollider2D> harry("Harry", 0, dims, origin);
-
-    ASSERT_EQ(harry.name, "Harry");
-    harry.checkInit();
+    
+    harry.checkInit("Harry");
 
     ASSERT_EQ(harry.mCol->getDims(), dims);
     ASSERT_EQ(harry.mCol->getOrigin(), origin);
     
     Vector2<tQ_num> curpos(5, 5);
     harry.trans.position = curpos;
-    harry.mCol->update(0, harry.trans);
+    harry.mCol->update(1, harry.trans);
     EXPECT_EQ(harry.mCol->getMin(), curpos + origin);
     EXPECT_EQ(harry.mCol->getMax(), curpos + origin + dims);
 
     curpos.set(15, 15);
     harry.trans.position = curpos;
-    harry.mCol->update(0, harry.trans);
+    harry.mCol->update(1, harry.trans);
     EXPECT_EQ(harry.mCol->getMin(), curpos + origin);
     EXPECT_EQ(harry.mCol->getMax(), curpos + origin + dims);
 }

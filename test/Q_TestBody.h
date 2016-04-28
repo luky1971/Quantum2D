@@ -40,9 +40,10 @@ namespace QTest {
             this->other = static_cast<TestBody*>(other);
         }
 
-        void checkInit() {
+        void checkInit(const std::string &exp_name) {
             ASSERT_NE(mCol, nullptr);
             ASSERT_EQ(other, nullptr);
+            ASSERT_EQ(name, exp_name);
         }
 
         std::string name;

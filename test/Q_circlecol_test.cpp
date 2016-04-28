@@ -25,10 +25,8 @@ TEST(CircleColTest, OnCollides) {
     QTest::TestBody<Quantum2D::CircleCollider> body1(name1, 0, 1);
     QTest::TestBody<Quantum2D::CircleCollider> body2(name2, 0, 1);
 
-    body1.checkInit();
-    body2.checkInit();
-    ASSERT_EQ(body1.name, name1);
-    ASSERT_EQ(body2.name, name2);
+    body1.checkInit(body1.name);
+    body2.checkInit(body2.name);
 
     body1.mCol->onCollide(body2.mCol);
     body2.mCol->onCollide(body1.mCol);
@@ -46,20 +44,19 @@ TEST(CircleColTest, Updates) {
     Vector2<tQ_num> center(2, 2);
 
     QTest::TestBody<Quantum2D::CircleCollider> harry("Harry", 0, radius, center);
-
-    ASSERT_EQ(harry.name, "Harry");
-    harry.checkInit();
+    
+    harry.checkInit("Harry");
 
     ASSERT_EQ(harry.mCol->getRadius(), radius);
     ASSERT_EQ(harry.mCol->getCenter(), center);
 
     Vector2<tQ_num> curpos(5, 5);
     harry.trans.position = curpos;
-    harry.mCol->update(0, harry.trans);
+    harry.mCol->update(1, harry.trans);
     EXPECT_EQ(harry.mCol->getWorldPos(), curpos + center);
 
     curpos.set(15, 15);
     harry.trans.position = curpos;
-    harry.mCol->update(0, harry.trans);
+    harry.mCol->update(1, harry.trans);
     EXPECT_EQ(harry.mCol->getWorldPos(), curpos + center);
 }
