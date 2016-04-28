@@ -14,11 +14,10 @@
     limitations under the License.
 */
 
-#include <functional>
-#include <string>
+#include "Q_TestBody.h"
 #include "Q_AABBCollider2D.h"
-#include "gtest/gtest.h"
 
+/*
 namespace QTest {
     class TestBody {
     public:
@@ -48,15 +47,15 @@ namespace QTest {
         Quantum2D::AABBCollider2D *mCol;
         TestBody *other;
     };   
-}
+}*/
 
 
 TEST(AABBColTest, OnCollides) {
     std::string name1("Harry");
     std::string name2("Hagrid");
 
-    QTest::TestBody body1(name1);
-    QTest::TestBody body2(name2);
+    QTest::TestBody<Quantum2D::AABBCollider2D> body1(name1, 0, Diamond::Vector2<float>(10, 10));
+    QTest::TestBody<Quantum2D::AABBCollider2D> body2(name2, 0, Diamond::Vector2<float>(10, 10));
     
     body1.checkInit();
     body2.checkInit();
@@ -78,13 +77,11 @@ TEST(AABBColTest, Updates) {
     Vector2<tQ_num> dims(10, 10);
     Vector2<tQ_num> origin(0, 0);
 
-    QTest::TestBody harry("Harry", dims, origin);
+    QTest::TestBody<Quantum2D::AABBCollider2D> harry("Harry", 0, dims, origin);
 
     ASSERT_EQ(harry.name, "Harry");
     harry.checkInit();
 
-    // Need to use ASSERT_TRUE instead of ASSERT_EQ
-    // because for some reason gtest doesn't like Vector2's equality operator
     ASSERT_EQ(harry.mCol->getDims(), dims);
     ASSERT_EQ(harry.mCol->getOrigin(), origin);
     
