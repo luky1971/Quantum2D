@@ -24,18 +24,18 @@ bool Quantum2D::DynamicWorld2D::init() {
 void Quantum2D::DynamicWorld2D::step(tQ_delta delta_ms) {
     // Move rigidbodies
     for (Rigidbody2D body : bodies) {
-        getTransform(body.getTransformID()).position += (body.getVelocity() * delta_ms);
+        body.setPosition(body.getPosition() + (body.getVelocity() * delta_ms));
     }
 
     // --Test collisions-- //
 
     // Update colliders
     for (auto i = colliders.begin(); i != colliders.end(); ++i) {
-        (*i)->update(delta_ms, getTransform(getRigidbody((*i)->getBodyID()).getTransformID()));
+        (*i)->update(delta_ms, getRigidbody((*i)->getBodyID()));
     }
 
     bool col = false; // DEBUG
-                      // Pairwise test collisions. TODO: broad phase
+    // Pairwise test collisions. TODO: broad phase
     for (int i = 0; i < colliders.size() - 1; ++i) {
         // for (int i = 0; i < colliders.size(); ++i) {
         /*

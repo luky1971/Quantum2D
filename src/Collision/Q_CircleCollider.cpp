@@ -24,6 +24,6 @@ Quantum2D::CircleCollider::CircleCollider(body2d_id body,
     : Collider2D(eCIRCLE, body, parent, onCollision), 
       radius(radius), radiusSq(radius * radius), center(center) {}
 
-void Quantum2D::CircleCollider::update(tQ_delta delta_ms, Diamond::Transform2<tQ_pos, tQ_rot> &trans) {
-    world_pos = trans.position + center;
+void Quantum2D::CircleCollider::update(tQ_delta delta_ms, const Rigidbody2D &body) {
+    world_pos = body.getPosition() + center;
 }

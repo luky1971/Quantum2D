@@ -23,8 +23,8 @@ Quantum2D::AABBCollider2D::AABBCollider2D(body2d_id body,
                                           const Diamond::Vector2<tQ_pos> &origin) 
     : Collider2D(eAABB, body, parent, onCollision), dims(dims), origin(origin) {}
 
-void Quantum2D::AABBCollider2D::update(tQ_delta delta_ms, Diamond::Transform2<tQ_pos, tQ_rot> &trans) {
+void Quantum2D::AABBCollider2D::update(tQ_delta delta_ms, const Rigidbody2D &body) {
     // TODO: consider rotation!
-    min = trans.position + origin;
+    min = body.getPosition() + origin;
     max = min + dims;
 }
