@@ -17,38 +17,6 @@
 #include "Q_TestBody.h"
 #include "Q_AABBCollider2D.h"
 
-/*
-namespace QTest {
-    class TestBody {
-    public:
-        TestBody(const std::string &name, 
-                 const Diamond::Vector2<tQ_num> &dims = Diamond::Vector2<tQ_num>(1, 1), 
-                 const Diamond::Vector2<tQ_num> &origin = Diamond::Vector2<tQ_num>(0, 0))
-            : name(name), mCol(nullptr), other(nullptr) {
-            std::function<void(void*)> callback = std::bind(&TestBody::onCollision, this, std::placeholders::_1);
-            mCol = new Quantum2D::AABBCollider2D(0, this, callback, dims, origin);
-        }
-
-        ~TestBody() {
-            delete mCol;
-        }
-
-        void onCollision(void *other) {
-            this->other = static_cast<TestBody*>(other);
-        }
-
-        void checkInit() {
-            ASSERT_NE(mCol, nullptr);
-            ASSERT_EQ(other, nullptr);
-        }
-
-        std::string name;
-        Diamond::Transform2<tQ_pos, tQ_rot> trans;
-        Quantum2D::AABBCollider2D *mCol;
-        TestBody *other;
-    };   
-}*/
-
 
 TEST(AABBColTest, OnCollides) {
     std::string name1("Harry");
@@ -83,14 +51,14 @@ TEST(AABBColTest, Updates) {
     ASSERT_EQ(harry.mCol->getOrigin(), origin);
     
     Vector2<tQ_num> curpos(5, 5);
-    harry.trans.position = curpos;
-    harry.mCol->update(1, harry.trans);
+    harry.body.setPosition(curpos);
+    harry.mCol->update(1, harry.body);
     EXPECT_EQ(harry.mCol->getMin(), curpos + origin);
     EXPECT_EQ(harry.mCol->getMax(), curpos + origin + dims);
 
     curpos.set(15, 15);
-    harry.trans.position = curpos;
-    harry.mCol->update(1, harry.trans);
+    harry.body.setPosition(curpos);
+    harry.mCol->update(1, harry.body);
     EXPECT_EQ(harry.mCol->getMin(), curpos + origin);
     EXPECT_EQ(harry.mCol->getMax(), curpos + origin + dims);
 }

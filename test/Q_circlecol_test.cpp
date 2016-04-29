@@ -51,12 +51,12 @@ TEST(CircleColTest, Updates) {
     ASSERT_EQ(harry.mCol->getCenter(), center);
 
     Vector2<tQ_num> curpos(5, 5);
-    harry.trans.position = curpos;
-    harry.mCol->update(1, harry.trans);
+    harry.body.setPosition(curpos);
+    harry.mCol->update(1, harry.body);
     EXPECT_EQ(harry.mCol->getWorldPos(), curpos + center);
 
     curpos.set(15, 15);
-    harry.trans.position = curpos;
-    harry.mCol->update(1, harry.trans);
+    harry.body.setPosition(curpos);
+    harry.mCol->update(1, harry.body);
     EXPECT_EQ(harry.mCol->getWorldPos(), curpos + center);
 }

@@ -34,20 +34,20 @@ void testAABB2(F AABB2) {
     body1.checkInit(body1.name);
     body2.checkInit(body2.name);
 
-    body1.trans.position.set(-10, 0);
-    body2.trans.position.set(15, 0);
+    body1.body.setPosition(Vector2<int>(-10, 0));
+    body2.body.setPosition(Vector2<int>(15, 0));
 
-    body1.mCol->update(1, body1.trans);
-    body2.mCol->update(1, body2.trans);
+    body1.mCol->update(1, body1.body);
+    body2.mCol->update(1, body2.body);
 
     EXPECT_FALSE(AABB2(body1.mCol, body2.mCol));
     EXPECT_FALSE(AABB2(body2.mCol, body1.mCol)); // switch order
 
-    body1.trans.position.set(5, -2);
-    body2.trans.position.set(7, 3);
+    body1.body.setPosition(Vector2<int>(5, -2));
+    body2.body.setPosition(Vector2<int>(7, 3));
 
-    body1.mCol->update(1, body1.trans);
-    body2.mCol->update(1, body2.trans);
+    body1.mCol->update(1, body1.body);
+    body2.mCol->update(1, body2.body);
 
     EXPECT_TRUE(AABB2(body1.mCol, body2.mCol));
     EXPECT_TRUE(AABB2(body2.mCol, body1.mCol));
@@ -64,20 +64,20 @@ void testCircle2(F circle2) {
     body1.checkInit(body1.name);
     body2.checkInit(body2.name);
 
-    body1.trans.position.set(-10, 0);
-    body2.trans.position.set(15, 0);
+    body1.body.setPosition(Vector2<int>(-10, 0));
+    body2.body.setPosition(Vector2<int>(15, 0));
 
-    body1.mCol->update(1, body1.trans);
-    body2.mCol->update(1, body2.trans);
+    body1.mCol->update(1, body1.body);
+    body2.mCol->update(1, body2.body);
 
     EXPECT_FALSE(circle2(body1.mCol, body2.mCol));
     EXPECT_FALSE(circle2(body2.mCol, body1.mCol)); // switch order
 
-    body1.trans.position.set(5, -1);
-    body2.trans.position.set(6, 3);
+    body1.body.setPosition(Vector2<int>(5, -1));
+    body2.body.setPosition(Vector2<int>(6, 3));
 
-    body1.mCol->update(1, body1.trans);
-    body2.mCol->update(1, body2.trans);
+    body1.mCol->update(1, body1.body);
+    body2.mCol->update(1, body2.body);
 
     EXPECT_TRUE(circle2(body1.mCol, body2.mCol));
     EXPECT_TRUE(circle2(body2.mCol, body1.mCol));
@@ -113,21 +113,21 @@ TEST(CollisionTestTest, CircleAABB) {
     body1.checkInit(body1.name);
     body2.checkInit(body2.name);
 
-    body1.trans.position.set(-10, 0);
-    body2.trans.position.set(15, 0);
+    body1.body.setPosition(Vector2<int>(-10, 0));
+    body2.body.setPosition(Vector2<int>(15, 0));
 
-    body1.mCol->update(1, body1.trans);
-    body2.mCol->update(1, body2.trans);
+    body1.mCol->update(1, body1.body);
+    body2.mCol->update(1, body2.body);
 
     EXPECT_FALSE(CollisionTest2D::circleAABB(body1.mCol, body2.mCol));
     EXPECT_FALSE(CollisionTest2D::collide(body1.mCol, body2.mCol));
     EXPECT_FALSE(CollisionTest2D::collide(body2.mCol, body1.mCol)); // switch order
 
-    body1.trans.position.set(5, 1);
-    body2.trans.position.set(6, 2);
+    body1.body.setPosition(Vector2<int>(5, 1));
+    body2.body.setPosition(Vector2<int>(6, 2));
 
-    body1.mCol->update(1, body1.trans);
-    body2.mCol->update(1, body2.trans);
+    body1.mCol->update(1, body1.body);
+    body2.mCol->update(1, body2.body);
 
     EXPECT_TRUE(CollisionTest2D::circleAABB(body1.mCol, body2.mCol));
     EXPECT_TRUE(CollisionTest2D::collide(body1.mCol, body2.mCol));

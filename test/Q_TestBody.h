@@ -47,7 +47,7 @@ namespace QTest {
         }
 
         std::string name;
-        Diamond::Transform2<tQ_pos, tQ_rot> trans;
+        Quantum2D::Rigidbody2D body;
         COL *mCol;
         TestBody *other;
     };

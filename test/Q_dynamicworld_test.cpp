@@ -34,32 +34,15 @@ protected:
         world.init();
 
         for (int i = 0; i < SIZE; ++i) {
-            trans[i] = world.genTransform();
-            world.getTransform(trans[i]).position.set(i, i);
-        }
-
-        for (int i = 0; i < SIZE; ++i) {
-            bodies[i] = world.genRigidbody(trans[i]);
-            world.getRigidbody(bodies[i]).getVelocity().set(i, i);
+            bodies[i] = world.genRigidbody();
+            world.getRigidbody(bodies[i]).setVelocity(Vector2<int>(i, i));
         }
     }
 
     static const int SIZE = 10;
     DynamicWorld2D world;
-    transform2_id trans[SIZE];
     body2d_id bodies[SIZE];
 };
-
-TEST_F(SimulationTest, PersistTransforms) {
-    for (int i = 0; i < SIZE; ++i) {
-        if (i % 2 == 1) {
-            world.freeTransform(trans[i]);
-        }
-        else {
-            EXPECT_EQ((Vector2<int>)(world.getTransform(trans[i]).position), Vector2<int>(i, i));
-        }
-    }
-}
 
 TEST_F(SimulationTest, PersistBodies) {
     for (int i = 0; i < SIZE; ++i) {
