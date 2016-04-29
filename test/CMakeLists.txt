@@ -14,29 +14,21 @@
 # limitations under the License.
 #
 
-cmake_minimum_required(VERSION 3.2.0)
-project(Quantum2D)
-
-
-# Flags
-set(CMAKE_CXX_FLAGS -std=c++11)
-
-
 # Header includes
-include_directories(
-	include/
-	extern/DiamondUtils/include
-)
+include_directories(googletest/include)
+
+
+# Libraries
+# TODO: Windows and linux googletest libs
+set(LINK_LIBS libgtest.a Quantum2D)
+link_directories(googletest/lib)
 
 
 # Get source files
-file(GLOB_RECURSE SOURCES src/*.cpp)
+file(GLOB_RECURSE SOURCES *.cpp)
 
 
-# Build Quantum2D library
-add_library(Quantum2D STATIC ${SOURCES})
-install(TARGETS Quantum2D DESTINATION lib)
-
-
-# Build subdirectories
-add_subdirectory(test)
+# Build tests
+add_executable(TestQuantum2D ${SOURCES})
+target_link_libraries(TestQuantum2D ${LINK_LIBS})
+install(TARGETS TestQuantum2D DESTINATION bin)
