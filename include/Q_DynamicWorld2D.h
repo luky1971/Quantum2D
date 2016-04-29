@@ -102,7 +102,7 @@ namespace Quantum2D {
 
 
         /**
-        Steps the physics simulation by the number of milliseconds given.
+         Steps the physics simulation by the number of milliseconds given.
         */
         void step(tQ_delta delta_ms);
 
