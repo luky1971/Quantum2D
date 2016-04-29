@@ -23,7 +23,7 @@
 namespace Quantum2D {
     class Rigidbody2D {
     public:
-        Rigidbody2D() {}
+        Rigidbody2D() : rotation(0) {}
 
         const Diamond::Vector2<tQ_pos> &getPosition() const { return position; }
         void setPosition(const Diamond::Vector2<tQ_pos> &newpos) { position = newpos; }

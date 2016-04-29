@@ -23,8 +23,8 @@ bool Quantum2D::DynamicWorld2D::init() {
 
 void Quantum2D::DynamicWorld2D::step(tQ_delta delta_ms) {
     // Move rigidbodies
-    for (Rigidbody2D body : bodies) {
-        body.setPosition(body.getPosition() + (body.getVelocity() * delta_ms));
+    for (auto i = bodies.begin(); i != bodies.end(); ++i) {
+        (*i).setPosition((*i).getPosition() + ((*i).getVelocity() * delta_ms));
     }
 
     // --Test collisions-- //

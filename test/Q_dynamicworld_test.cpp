@@ -81,3 +81,32 @@ TEST_F(SimulationTest, PersistColliders) {
         }
     }
 }
+
+TEST_F(SimulationTest, SimulatesVelocity) {
+    const int STEP = 5;
+    const int NUMSTEPS = 2;
+    
+    for (int i = 0; i < SIZE; ++i) {
+        world.getRigidbody(bodies[i]).setPosition(Vector2<int>(i, i));
+        if (i % 2 == 0) {
+            world.getRigidbody(bodies[i]).setVelocity(Vector2<int>(i, i));
+        }
+        else {
+            world.getRigidbody(bodies[i]).setVelocity(Vector2<int>(-i, -i));
+        }
+    }
+
+    for (int f = 1; f <= NUMSTEPS; ++f) {
+        world.step(STEP);
+        for (int i = 0; i < SIZE; ++i) {
+            if (i % 2 == 0) {
+                EXPECT_EQ(world.getRigidbody(bodies[i]).getPosition(),
+                    Vector2<int>(i + i * f * STEP, i + i * f * STEP)) << "f = " << f << ", i = " << i;
+            }
+            else {
+                EXPECT_EQ(world.getRigidbody(bodies[i]).getPosition(), 
+                    Vector2<int>(i - i * f * STEP, i - i * f * STEP)) << "f = " << f << ", i = " << i;
+            }
+        }
+    }
+}
