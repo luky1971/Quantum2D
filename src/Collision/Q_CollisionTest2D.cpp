@@ -18,7 +18,7 @@
 
 #include <typeindex>
 
-typedef bool(*ColFunc)(Quantum2D::Collider2D*, Quantum2D::Collider2D*);
+typedef bool(*ColFunc)(const Quantum2D::Collider2D*, const Quantum2D::Collider2D*);
 
 bool Quantum2D::CollisionTest2D::initialized = false;
 
@@ -26,24 +26,24 @@ namespace Quantum2D {
     namespace CollisionTest2D {
         static ColFunc col_funcs[eNUMCOLTYPES][eNUMCOLTYPES];
         
-        static bool colNONE(Collider2D *a, Collider2D *b) {
+        static bool colNONE(const Collider2D *a, const Collider2D *b) {
             return false;
         }
         
-        static bool colAABB2(Collider2D *a, Collider2D *b) {
-            return AABB2(static_cast<AABBCollider2D*>(a), static_cast<AABBCollider2D*>(b));
+        static bool colAABB2(const Collider2D *a, const Collider2D *b) {
+            return AABB2(static_cast<const AABBCollider2D*>(a), static_cast<const AABBCollider2D*>(b));
         }
 
-        static bool colCircle2(Collider2D *a, Collider2D *b) {
-            return circle2(static_cast<CircleCollider*>(a), static_cast<CircleCollider*>(b));
+        static bool colCircle2(const Collider2D *a, const Collider2D *b) {
+            return circle2(static_cast<const CircleCollider*>(a), static_cast<const CircleCollider*>(b));
         }
 
-        static bool colCircleAABB(Collider2D *a, Collider2D *b) {
-            return circleAABB(static_cast<CircleCollider*>(a), static_cast<AABBCollider2D*>(b));
+        static bool colCircleAABB(const Collider2D *a, const Collider2D *b) {
+            return circleAABB(static_cast<const CircleCollider*>(a), static_cast<const AABBCollider2D*>(b));
         }
 
-        static bool colAABBCircle(Collider2D *a, Collider2D *b) {
-            return circleAABB(static_cast<CircleCollider*>(b), static_cast<AABBCollider2D*>(a));
+        static bool colAABBCircle(const Collider2D *a, const Collider2D *b) {
+            return circleAABB(static_cast<const CircleCollider*>(b), static_cast<const AABBCollider2D*>(a));
         }
     }
 }
@@ -69,21 +69,21 @@ bool Quantum2D::CollisionTest2D::init() {
     return true;
 }
 
-bool Quantum2D::CollisionTest2D::collide(Collider2D *a, Collider2D *b) {
+bool Quantum2D::CollisionTest2D::collide(const Collider2D *a, const Collider2D *b) {
     return col_funcs[a->getType()][b->getType()](a, b);
 }
 
-bool Quantum2D::CollisionTest2D::AABB2(Quantum2D::AABBCollider2D *a, Quantum2D::AABBCollider2D *b) {
+bool Quantum2D::CollisionTest2D::AABB2(const AABBCollider2D *a, const AABBCollider2D *b) {
     return !(a->getMin().x - b->getMax().x > 0.0f || a->getMin().y - b->getMax().y > 0.0f
             || b->getMin().x - a->getMax().x > 0.0f || b->getMin().y - a->getMax().y > 0.0f);
 }
 
-bool Quantum2D::CollisionTest2D::circle2(CircleCollider *a, CircleCollider *b) {
+bool Quantum2D::CollisionTest2D::circle2(const CircleCollider *a, const CircleCollider *b) {
     tQ_pos rad_tot = a->getRadius() + b->getRadius();
     return a->getWorldPos().distanceSq(b->getWorldPos()) < rad_tot * rad_tot;
 }
 
-bool Quantum2D::CollisionTest2D::circleAABB(CircleCollider *a, AABBCollider2D *b) {
+bool Quantum2D::CollisionTest2D::circleAABB(const CircleCollider *a, const AABBCollider2D *b) {
     tQ_pos distSq = 0, diff;
 
     if (a->getWorldPos().x < b->getMin().x) {

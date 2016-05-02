@@ -18,7 +18,7 @@
 
 Quantum2D::AABBCollider2D::AABBCollider2D(body2d_id body, 
                                           void *parent, 
-                                          std::function<void(void *other)> &onCollision, 
+                                          const std::function<void(void *other)> &onCollision, 
                                           const Diamond::Vector2<tQ_pos> &dims, 
                                           const Diamond::Vector2<tQ_pos> &origin) 
     : Collider2D(eAABB, body, parent, onCollision), dims(dims), origin(origin) {}

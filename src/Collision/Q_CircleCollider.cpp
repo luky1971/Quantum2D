@@ -18,7 +18,7 @@
 
 Quantum2D::CircleCollider::CircleCollider(body2d_id body,
                                           void *parent,
-                                          std::function<void(void *other)> &onCollision,
+                                          const std::function<void(void *other)> &onCollision,
                                           tQ_pos radius,
                                           const Diamond::Vector2<tQ_pos> &center)
     : Collider2D(eCIRCLE, body, parent, onCollision), 
