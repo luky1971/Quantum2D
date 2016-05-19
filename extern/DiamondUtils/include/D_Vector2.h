@@ -23,7 +23,7 @@
 namespace Diamond {
     template <typename T>
     class Vector2 {
-        public:
+    public:
         T x, y;
 
         Vector2() : x(), y() {}
@@ -66,6 +66,12 @@ namespace Diamond {
         Vector2 &scalar(const Vector2<V> &b) {
             x *= b.x, y *= b.y;
             return *this;
+        }
+
+        // Matrix math
+        template <typename M>
+        Vector2<M> mul(const M m[2][2]) const {
+            return Vector2<M>(x * m[0][0] + y * m[1][0], x * m[0][1] + y * m[1][1]);
         }
 
         /**
@@ -129,19 +135,6 @@ namespace Diamond {
             return *this;
         }
 
-        /*
-        // Comparison operators
-        template <typename V>
-        bool operator==(const Vector2<V> &other) {
-            return x == other.x && y == other.y;
-        }
-
-        template <typename V>
-        bool operator!=(const Vector2<V> &other) {
-            return !(*this == other);
-        }
-        */
-
         // Conversion operator
         template <typename V>
         operator Vector2<V>() const {
@@ -149,15 +142,16 @@ namespace Diamond {
         }
     };
 
-    // Multiplication operators
-    template <typename V, typename S>
-    inline Vector2<V> operator*(const Vector2<V> &vec, const S scalar) {
-        return Vector2<V>(vec.x * scalar, vec.y * scalar);
-    }
+    // Multiplication operator
 
     template <typename V, typename S>
     inline Vector2<V> operator*(const S scalar, const Vector2<V> &vec) {
-        return vec * scalar;
+        return Vector2<V>(scalar * vec.x, scalar * vec.y);
+    }
+
+    template <typename V, typename S>
+    inline Vector2<V> operator*(const Vector2<V> &vec, const S scalar) {
+        return scalar * vec;
     }
 
     // Stream operator

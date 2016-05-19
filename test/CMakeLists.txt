@@ -19,13 +19,17 @@ include_directories(googletest/include)
 
 
 # Libraries
-# TODO: Windows and linux googletest libs
-set(LINK_LIBS libgtest.a Quantum2D)
-link_directories(googletest/lib)
+if(WIN32)
+	set(LINK_LIBS gtest.lib Quantum2D)
+	link_directories(googletest/lib/x86)
+else()
+	set(LINK_LIBS libgtest.a Quantum2D)
+	link_directories(googletest/lib)
+endif()
 
 
 # Get source files
-file(GLOB_RECURSE SOURCES *.cpp)
+file(GLOB_RECURSE SOURCES src/*.cpp)
 
 
 # Build tests
