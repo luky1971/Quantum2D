@@ -16,14 +16,15 @@
 
 #include "Q_CircleCollider.h"
 
-Quantum2D::CircleCollider::CircleCollider(body2d_id body,
+Quantum2D::CircleCollider::CircleCollider(const BodyList &bodylist, 
+                                          body2d_id body,
                                           void *parent,
                                           const std::function<void(void *other)> &onCollision,
                                           tQ_pos radius,
                                           const Diamond::Vector2<tQ_pos> &center)
-    : Collider2D(eCIRCLE, body, parent, onCollision), 
+    : Collider2D(bodylist, eCIRCLE, body, parent, onCollision), 
       radius(radius), radiusSq(radius * radius), center(center) {}
 
-void Quantum2D::CircleCollider::update(tQ_delta delta_ms, const Rigidbody2D &body) {
-    world_pos = body.getPosition() + center;
+void Quantum2D::CircleCollider::update(tQ_delta delta_ms) {
+    world_pos = bodylist[body].getPosition() + center;
 }

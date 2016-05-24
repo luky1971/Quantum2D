@@ -19,11 +19,14 @@
 
 
 TEST(CircleColTest, OnCollides) {
+    Quantum2D::BodyList blist;
+    blist.emplace_back();
+    blist.emplace_back();
     std::string name1("Harry");
     std::string name2("Hagrid");
 
-    QTest::TestBody<Quantum2D::CircleCollider> body1(name1, 0, 1);
-    QTest::TestBody<Quantum2D::CircleCollider> body2(name2, 0, 1);
+    QTest::TestBody<Quantum2D::CircleCollider> body1(blist, name1, 0, 1);
+    QTest::TestBody<Quantum2D::CircleCollider> body2(blist, name2, 1, 1);
 
     body1.checkInit(body1.name);
     body2.checkInit(body2.name);
@@ -40,10 +43,12 @@ TEST(CircleColTest, OnCollides) {
 
 TEST(CircleColTest, Updates) {
     using namespace Diamond;
+    Quantum2D::BodyList blist;
+    blist.emplace_back();
     tQ_pos radius = 3;
     Vector2<tQ_num> center(2, 2);
 
-    QTest::TestBody<Quantum2D::CircleCollider> harry("Harry", 0, radius, center);
+    QTest::TestBody<Quantum2D::CircleCollider> harry(blist, "Harry", 0, radius, center);
     
     harry.checkInit("Harry");
 
@@ -51,12 +56,12 @@ TEST(CircleColTest, Updates) {
     ASSERT_EQ(harry.mCol->getCenter(), center);
 
     Vector2<tQ_num> curpos(5, 5);
-    harry.body.setPosition(curpos);
-    harry.mCol->update(1, harry.body);
+    harry.getBody().setPosition(curpos);
+    harry.mCol->update(1);
     EXPECT_EQ(harry.mCol->getWorldPos(), curpos + center);
 
     curpos.set(15, 15);
-    harry.body.setPosition(curpos);
-    harry.mCol->update(1, harry.body);
+    harry.getBody().setPosition(curpos);
+    harry.mCol->update(1);
     EXPECT_EQ(harry.mCol->getWorldPos(), curpos + center);
 }

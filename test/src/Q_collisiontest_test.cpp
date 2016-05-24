@@ -25,29 +25,32 @@ using namespace Quantum2D;
 
 template <typename F>
 void testAABB2(F AABB2) {
+    Quantum2D::BodyList blist;
+    blist.emplace_back();
+    blist.emplace_back();
     std::string name1("Harry");
     std::string name2("Hagrid");
 
-    QTest::TestBody<AABBCollider2D> body1(name1, 0, Vector2<float>(10, 10), Vector2<float>(0, 0));
-    QTest::TestBody<AABBCollider2D> body2(name2, 0, Vector2<float>(10, 10), Vector2<float>(0, 0));
+    QTest::TestBody<AABBCollider2D> body1(blist, name1, 0, Vector2<float>(10, 10), Vector2<float>(0, 0));
+    QTest::TestBody<AABBCollider2D> body2(blist, name2, 1, Vector2<float>(10, 10), Vector2<float>(0, 0));
 
     body1.checkInit(body1.name);
     body2.checkInit(body2.name);
 
-    body1.body.setPosition(Vector2<int>(-10, 0));
-    body2.body.setPosition(Vector2<int>(15, 0));
+    body1.getBody().setPosition(Vector2<int>(-10, 0));
+    body2.getBody().setPosition(Vector2<int>(15, 0));
 
-    body1.mCol->update(1, body1.body);
-    body2.mCol->update(1, body2.body);
+    body1.mCol->update(1);
+    body2.mCol->update(1);
 
     EXPECT_FALSE(AABB2(body1.mCol, body2.mCol));
     EXPECT_FALSE(AABB2(body2.mCol, body1.mCol)); // switch order
 
-    body1.body.setPosition(Vector2<int>(5, -2));
-    body2.body.setPosition(Vector2<int>(7, 3));
+    body1.getBody().setPosition(Vector2<int>(5, -2));
+    body2.getBody().setPosition(Vector2<int>(7, 3));
 
-    body1.mCol->update(1, body1.body);
-    body2.mCol->update(1, body2.body);
+    body1.mCol->update(1);
+    body2.mCol->update(1);
 
     EXPECT_TRUE(AABB2(body1.mCol, body2.mCol));
     EXPECT_TRUE(AABB2(body2.mCol, body1.mCol));
@@ -55,29 +58,32 @@ void testAABB2(F AABB2) {
 
 template <typename F>
 void testCircle2(F circle2) {
+    Quantum2D::BodyList blist;
+    blist.emplace_back();
+    blist.emplace_back();
     std::string name1("Harry");
     std::string name2("Hagrid");
 
-    QTest::TestBody<CircleCollider> body1(name1, 0, 3, Vector2<float>(0, 0));
-    QTest::TestBody<CircleCollider> body2(name2, 0, 5, Vector2<float>(0, 0));
+    QTest::TestBody<CircleCollider> body1(blist, name1, 0, 3, Vector2<float>(0, 0));
+    QTest::TestBody<CircleCollider> body2(blist, name2, 1, 5, Vector2<float>(0, 0));
 
     body1.checkInit(body1.name);
     body2.checkInit(body2.name);
 
-    body1.body.setPosition(Vector2<int>(-10, 0));
-    body2.body.setPosition(Vector2<int>(15, 0));
+    body1.getBody().setPosition(Vector2<int>(-10, 0));
+    body2.getBody().setPosition(Vector2<int>(15, 0));
 
-    body1.mCol->update(1, body1.body);
-    body2.mCol->update(1, body2.body);
+    body1.mCol->update(1);
+    body2.mCol->update(1);
 
     EXPECT_FALSE(circle2(body1.mCol, body2.mCol));
     EXPECT_FALSE(circle2(body2.mCol, body1.mCol)); // switch order
 
-    body1.body.setPosition(Vector2<int>(5, -1));
-    body2.body.setPosition(Vector2<int>(6, 3));
+    body1.getBody().setPosition(Vector2<int>(5, -1));
+    body2.getBody().setPosition(Vector2<int>(6, 3));
 
-    body1.mCol->update(1, body1.body);
-    body2.mCol->update(1, body2.body);
+    body1.mCol->update(1);
+    body2.mCol->update(1);
 
     EXPECT_TRUE(circle2(body1.mCol, body2.mCol));
     EXPECT_TRUE(circle2(body2.mCol, body1.mCol));
@@ -104,30 +110,33 @@ TEST(CollisionTestTest, CollideCircle2) {
 }
 
 TEST(CollisionTestTest, CircleAABB) {
+    Quantum2D::BodyList blist;
+    blist.emplace_back();
+    blist.emplace_back();
     std::string name1("Harry");
     std::string name2("Hagrid");
 
-    QTest::TestBody<CircleCollider> body1(name1, 0, 3, Vector2<float>(0, 0));
-    QTest::TestBody<AABBCollider2D> body2(name2, 0, Vector2<float>(10, 10), Vector2<float>(0, 0));
+    QTest::TestBody<CircleCollider> body1(blist, name1, 0, 3, Vector2<float>(0, 0));
+    QTest::TestBody<AABBCollider2D> body2(blist, name2, 1, Vector2<float>(10, 10), Vector2<float>(0, 0));
 
     body1.checkInit(body1.name);
     body2.checkInit(body2.name);
 
-    body1.body.setPosition(Vector2<int>(-10, 0));
-    body2.body.setPosition(Vector2<int>(15, 0));
+    body1.getBody().setPosition(Vector2<int>(-10, 0));
+    body2.getBody().setPosition(Vector2<int>(15, 0));
 
-    body1.mCol->update(1, body1.body);
-    body2.mCol->update(1, body2.body);
+    body1.mCol->update(1);
+    body2.mCol->update(1);
 
     EXPECT_FALSE(CollisionTest2D::circleAABB(body1.mCol, body2.mCol));
     EXPECT_FALSE(CollisionTest2D::collide(body1.mCol, body2.mCol));
     EXPECT_FALSE(CollisionTest2D::collide(body2.mCol, body1.mCol)); // switch order
 
-    body1.body.setPosition(Vector2<int>(5, 1));
-    body2.body.setPosition(Vector2<int>(6, 2));
+    body1.getBody().setPosition(Vector2<int>(5, 1));
+    body2.getBody().setPosition(Vector2<int>(6, 2));
 
-    body1.mCol->update(1, body1.body);
-    body2.mCol->update(1, body2.body);
+    body1.mCol->update(1);
+    body2.mCol->update(1);
 
     EXPECT_TRUE(CollisionTest2D::circleAABB(body1.mCol, body2.mCol));
     EXPECT_TRUE(CollisionTest2D::collide(body1.mCol, body2.mCol));

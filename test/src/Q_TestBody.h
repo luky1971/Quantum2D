@@ -26,14 +26,18 @@ namespace QTest {
     class TestBody {
     public:
         template <typename... Args>
-        TestBody(const std::string &name, int rbody, Args&&... args)
-            : name(name), mCol(nullptr), other(nullptr) {
+        TestBody(Quantum2D::BodyList &bodylist, const std::string &name, int rbody, Args&&... args)
+            : name(name), blist(bodylist), body(rbody), mCol(nullptr), other(nullptr) {
             std::function<void(void*)> callback = std::bind(&TestBody::onCollision, this, std::placeholders::_1);
-            mCol = new COL(rbody, this, callback, std::forward<Args>(args)...);
+            mCol = new COL(bodylist, rbody, this, callback, std::forward<Args>(args)...);
         }
 
         ~TestBody() {
             delete mCol;
+        }
+
+        Quantum2D::Rigidbody2D &getBody() {
+            return blist[body];
         }
 
         void onCollision(void *other) {
@@ -47,7 +51,8 @@ namespace QTest {
         }
 
         std::string name;
-        Quantum2D::Rigidbody2D body;
+        Quantum2D::BodyList &blist;
+        body2d_id body;
         COL *mCol;
         TestBody *other;
     };

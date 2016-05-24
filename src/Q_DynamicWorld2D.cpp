@@ -31,7 +31,7 @@ void Quantum2D::DynamicWorld2D::step(tQ_delta delta_ms) {
 
     // Update colliders
     for (auto i = colliders.begin(); i != colliders.end(); ++i) {
-        (*i)->update(delta_ms, getRigidbody((*i)->getBodyID()));
+        (*i)->update(delta_ms);
     }
 
     bool col = false; // DEBUG

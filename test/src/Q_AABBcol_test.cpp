@@ -19,11 +19,14 @@
 
 
 TEST(AABBColTest, OnCollides) {
+    Quantum2D::BodyList blist;
+    blist.emplace_back();
+    blist.emplace_back();
     std::string name1("Harry");
     std::string name2("Hagrid");
 
-    QTest::TestBody<Quantum2D::AABBCollider2D> body1(name1, 0, Diamond::Vector2<float>(10, 10));
-    QTest::TestBody<Quantum2D::AABBCollider2D> body2(name2, 0, Diamond::Vector2<float>(10, 10));
+    QTest::TestBody<Quantum2D::AABBCollider2D> body1(blist, name1, 0, Diamond::Vector2<float>(10, 10));
+    QTest::TestBody<Quantum2D::AABBCollider2D> body2(blist, name2, 1, Diamond::Vector2<float>(10, 10));
     
     body1.checkInit(body1.name);
     body2.checkInit(body2.name);
@@ -40,10 +43,12 @@ TEST(AABBColTest, OnCollides) {
 
 TEST(AABBColTest, Updates) {
     using namespace Diamond;
+    Quantum2D::BodyList blist;
+    blist.emplace_back();
     Vector2<tQ_num> dims(10, 10);
     Vector2<tQ_num> origin(0, 0);
 
-    QTest::TestBody<Quantum2D::AABBCollider2D> harry("Harry", 0, dims, origin);
+    QTest::TestBody<Quantum2D::AABBCollider2D> harry(blist, "Harry", 0, dims, origin);
     
     harry.checkInit("Harry");
 
@@ -51,14 +56,14 @@ TEST(AABBColTest, Updates) {
     ASSERT_EQ(harry.mCol->getOrigin(), origin);
     
     Vector2<tQ_num> curpos(5, 5);
-    harry.body.setPosition(curpos);
-    harry.mCol->update(1, harry.body);
+    harry.getBody().setPosition(curpos);
+    harry.mCol->update(1);
     EXPECT_EQ(harry.mCol->getMin(), curpos + origin);
     EXPECT_EQ(harry.mCol->getMax(), curpos + origin + dims);
 
     curpos.set(15, 15);
-    harry.body.setPosition(curpos);
-    harry.mCol->update(1, harry.body);
+    harry.getBody().setPosition(curpos);
+    harry.mCol->update(1);
     EXPECT_EQ(harry.mCol->getMin(), curpos + origin);
     EXPECT_EQ(harry.mCol->getMax(), curpos + origin + dims);
 }
