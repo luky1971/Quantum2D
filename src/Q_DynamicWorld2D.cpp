@@ -34,7 +34,7 @@ void Quantum2D::DynamicWorld2D::step(tQ_delta delta_ms) {
         (*i)->update(delta_ms);
     }
 
-    bool col = false; // DEBUG
+    // bool col = false; // DEBUG
     // Pairwise test collisions. TODO: broad phase
     for (int i = 0; i < colliders.size() - 1; ++i) {
         // for (int i = 0; i < colliders.size(); ++i) {
@@ -47,13 +47,13 @@ void Quantum2D::DynamicWorld2D::step(tQ_delta delta_ms) {
 
         for (int j = i + 1; j < colliders.size(); ++j) {
             if (CollisionTest2D::collide(colliders[i].get(), colliders[j].get())) {
-                col = true; // DEBUG
+                // col = true; // DEBUG
                 colliders[i]->onCollide(colliders[j].get());
                 colliders[j]->onCollide(colliders[i].get());
                 // std::cout << "Collision!" << std::endl; // DEBUG
             }
         }
     }
-    if (!col)
-        std::cout << "No collision" << std::endl; // DEBUG
+    /*if (!col)
+        std::cout << "No collision" << std::endl; // DEBUG*/
 }
