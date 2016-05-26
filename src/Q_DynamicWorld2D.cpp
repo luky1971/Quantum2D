@@ -26,17 +26,21 @@ void Quantum2D::DynamicWorld2D::step(tQ_delta delta_ms) {
     for (auto i = bodies.begin(); i != bodies.end(); ++i) {
         (*i).setPosition((*i).getPosition() + ((*i).getVelocity() * delta_ms));
     }
-
+    
     // --Test collisions-- //
-
+    
     // Update colliders
     for (auto i = colliders.begin(); i != colliders.end(); ++i) {
         (*i)->update(delta_ms);
     }
-
+    
     // bool col = false; // DEBUG
     // Pairwise test collisions. TODO: broad phase
-    for (int i = 0; i < colliders.size() - 1; ++i) {
+    
+    // Need to cast colliders.size() to int before subtracting 1
+    // because size type might be unsigned, and subtracting 1 from
+    // unsigned when size = 0 will cause mass chaos and destruction.
+    for (int i = 0; i < (int64_t)colliders.size() - 1; ++i) {
         // for (int i = 0; i < colliders.size(); ++i) {
         /*
         // DEBUG
@@ -44,7 +48,7 @@ void Quantum2D::DynamicWorld2D::step(tQ_delta delta_ms) {
         AABBCollider2D *col = static_cast<AABBCollider2D*>(colliders[i].get());
         std::cout << col->getOrigin() << "; " << col->getDims() << "; " << col->getMin() << "; " << col->getMax() << std::endl;
         */
-
+        //std::cout << i << std::endl;
         for (int j = i + 1; j < colliders.size(); ++j) {
             if (CollisionTest2D::collide(colliders[i].get(), colliders[j].get())) {
                 // col = true; // DEBUG
@@ -54,6 +58,7 @@ void Quantum2D::DynamicWorld2D::step(tQ_delta delta_ms) {
             }
         }
     }
+    
     /*if (!col)
         std::cout << "No collision" << std::endl; // DEBUG*/
 }
