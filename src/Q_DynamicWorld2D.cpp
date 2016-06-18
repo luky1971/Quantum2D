@@ -17,6 +17,16 @@
 #include "Q_DynamicWorld2D.h"
 #include "Q_CollisionTest2D.h"
 
+namespace Quantum2D {
+    struct ColliderPair {
+    public:
+        ColliderPair(Collider2D *a, Collider2D *b) : a(a), b(b) {}
+
+        Collider2D *a, *b;
+    };
+}
+
+
 bool Quantum2D::DynamicWorld2D::init() {
     return CollisionTest2D::init();
 }
@@ -37,6 +47,7 @@ void Quantum2D::DynamicWorld2D::step(tQ_delta delta_ms) {
     // bool col = false; // DEBUG
     // Pairwise test collisions. TODO: broad phase
     
+    std::vector<ColliderPair> pairs;
     // Need to cast colliders.size() to int before subtracting 1
     // because size type might be unsigned, and subtracting 1 from
     // unsigned when size = 0 will cause mass chaos and destruction.
@@ -52,11 +63,18 @@ void Quantum2D::DynamicWorld2D::step(tQ_delta delta_ms) {
         for (int j = i + 1; j < colliders.size(); ++j) {
             if (CollisionTest2D::collide(colliders[i].get(), colliders[j].get())) {
                 // col = true; // DEBUG
-                colliders[i]->onCollide(colliders[j].get());
-                colliders[j]->onCollide(colliders[i].get());
+                // colliders[i]->onCollide(colliders[j].get());
+                // colliders[j]->onCollide(colliders[i].get());
+                pairs.emplace_back(colliders[i].get(), colliders[j].get());
                 // std::cout << "Collision!" << std::endl; // DEBUG
             }
         }
+    }
+
+    // TODO: instead of doing this, let the engine user decide what to do with pairs
+    for (ColliderPair pair : pairs) {
+        pair.a->onCollide(pair.b);
+        pair.b->onCollide(pair.a);
     }
     
     /*if (!col)
