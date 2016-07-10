@@ -26,5 +26,5 @@ Quantum2D::CircleCollider::CircleCollider(const BodyList &bodylist,
       radius(radius), radiusSq(radius * radius), center(center) {}
 
 void Quantum2D::CircleCollider::update(tQ_delta delta_ms) {
-    world_pos = bodylist[body].getPosition() + center;
+    world_pos = bodylist[body].position() + center;
 }

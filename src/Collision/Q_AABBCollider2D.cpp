@@ -26,6 +26,6 @@ Quantum2D::AABBCollider2D::AABBCollider2D(const BodyList &bodylist,
 
 void Quantum2D::AABBCollider2D::update(tQ_delta delta_ms) {
     // TODO: consider rotation!
-    min = bodylist[body].getPosition() + origin;
+    min = bodylist[body].position() + origin;
     max = min + dims;
 }
