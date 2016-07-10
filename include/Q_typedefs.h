@@ -33,7 +33,6 @@ typedef tQ_num tQ_pos;
 typedef tQ_num tQ_rot;
 typedef tQ_num tQ_delta;
 
-
 namespace Quantum2D {
     class Rigidbody2D;
     class Collider2D;

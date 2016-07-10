@@ -21,6 +21,9 @@
 #include "Q_PolyColliderDef.h"
 
 namespace Quantum2D {
+    /**
+     Points MUST be specified in clockwise order!
+    */
     class PolyCollider : public Collider2D {
     public:
         PolyCollider(const BodyList &bodylist,
