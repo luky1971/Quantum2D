@@ -37,8 +37,9 @@ namespace Quantum2D {
     class Rigidbody2D;
     class Collider2D;
 
-    typedef Diamond::SwapVector<Rigidbody2D> BodyList;
-    typedef Diamond::SwapVector<std::unique_ptr<Collider2D> > ColliderList;
+    using BodyList = Diamond::SwapVector<Rigidbody2D>;
+    using ColliderList = Diamond::SwapVector<std::unique_ptr<Collider2D> >;
+    using PointList = std::vector<Diamond::Vector2<tQ_pos> >;
     
     // change based on the unit you are using for angles
     // ex. if you are storing radians in rigidbodies,

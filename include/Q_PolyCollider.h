@@ -18,7 +18,6 @@
 #define Q_POLY_COLLIDER_H
 
 #include "Q_Collider2D.h"
-#include "Q_PolyColliderDef.h"
 
 namespace Quantum2D {
     /**
@@ -30,13 +29,13 @@ namespace Quantum2D {
                      body2d_id body,
                      void *parent,
                      const std::function<void(void *other)> &onCollision,
-                     const PolyColliderDef *colDef);
+                     const PointList &points);
         
         /**
          Get the coordinates of this polygon's vertices
          in the parent rigidbody's local space.
         */
-        const PointList &points() const { return m_colDef->points(); }
+        const PointList &points() const { return m_points; }
         
         /**
          Get the current coordinates of this polygon's vertices
@@ -47,7 +46,7 @@ namespace Quantum2D {
         void update(tQ_delta delta) override;
         
     private:
-        const PolyColliderDef *m_colDef;
+        const PointList &m_points;
         PointList m_worldPoints;
     };
 }

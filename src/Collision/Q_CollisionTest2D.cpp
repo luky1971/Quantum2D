@@ -31,23 +31,28 @@ namespace Quantum2D {
         }
         
         static bool colAABB2(const Collider2D *a, const Collider2D *b) {
-            return AABB2(static_cast<const AABBCollider2D*>(a), static_cast<const AABBCollider2D*>(b));
+            return AABB2(static_cast<const AABBCollider2D*>(a),
+                         static_cast<const AABBCollider2D*>(b));
         }
 
         static bool colCircle2(const Collider2D *a, const Collider2D *b) {
-            return circle2(static_cast<const CircleCollider*>(a), static_cast<const CircleCollider*>(b));
+            return circle2(static_cast<const CircleCollider*>(a),
+                           static_cast<const CircleCollider*>(b));
         }
 
         static bool colCircleAABB(const Collider2D *a, const Collider2D *b) {
-            return circleAABB(static_cast<const CircleCollider*>(a), static_cast<const AABBCollider2D*>(b));
+            return circleAABB(static_cast<const CircleCollider*>(a),
+                              static_cast<const AABBCollider2D*>(b));
         }
 
         static bool colAABBCircle(const Collider2D *a, const Collider2D *b) {
-            return circleAABB(static_cast<const CircleCollider*>(b), static_cast<const AABBCollider2D*>(a));
+            return circleAABB(static_cast<const CircleCollider*>(b),
+                              static_cast<const AABBCollider2D*>(a));
         }
         
         static bool colPoly2(const Collider2D *a, const Collider2D *b) {
-            return poly2(static_cast<const PolyCollider*>(a), static_cast<const PolyCollider*>(b));
+            return poly2(static_cast<const PolyCollider*>(a),
+                         static_cast<const PolyCollider*>(b));
         }
         
         // ea and eb must be in clockwise order!
@@ -69,13 +74,19 @@ namespace Quantum2D {
         }
         
         // edge points must be specified in clockwise order!
-        static bool polyVertsOutside(const PointList &edgePoints, const PointList &verts) {
+        static bool polyVertsOutside(const PointList &edgePoints,
+                                     const PointList &verts) {
+            
             for (int i = 1; i < edgePoints.size(); ++i) {
-                if (edgeVertsOutisde(edgePoints[i-1], edgePoints[i], verts))
+                if (edgeVertsOutisde(edgePoints[i-1],
+                                     edgePoints[i],
+                                     verts))
                     return true;
             }
             
-            return edgeVertsOutisde(edgePoints.back(), edgePoints.front(), verts);
+            return edgeVertsOutisde(edgePoints.back(),
+                                    edgePoints.front(),
+                                    verts);
         }
     }
 }
@@ -108,21 +119,27 @@ bool Quantum2D::CollisionTest2D::init() {
     return true;
 }
 
-bool Quantum2D::CollisionTest2D::collide(const Collider2D *a, const Collider2D *b) {
+bool Quantum2D::CollisionTest2D::collide(const Collider2D *a,
+                                         const Collider2D *b) {
     return col_funcs[a->getType()][b->getType()](a, b);
 }
 
-bool Quantum2D::CollisionTest2D::AABB2(const AABBCollider2D *a, const AABBCollider2D *b) {
-    return !(a->getMin().x - b->getMax().x > 0.0f || a->getMin().y - b->getMax().y > 0.0f
-            || b->getMin().x - a->getMax().x > 0.0f || b->getMin().y - a->getMax().y > 0.0f);
+bool Quantum2D::CollisionTest2D::AABB2(const AABBCollider2D *a,
+                                       const AABBCollider2D *b) {
+    return !(a->getMin().x - b->getMax().x > 0.0f ||
+             a->getMin().y - b->getMax().y > 0.0f ||
+             b->getMin().x - a->getMax().x > 0.0f ||
+             b->getMin().y - a->getMax().y > 0.0f);
 }
 
-bool Quantum2D::CollisionTest2D::circle2(const CircleCollider *a, const CircleCollider *b) {
+bool Quantum2D::CollisionTest2D::circle2(const CircleCollider *a,
+                                         const CircleCollider *b) {
     tQ_pos rad_tot = a->getRadius() + b->getRadius();
     return a->getWorldPos().distanceSq(b->getWorldPos()) < rad_tot * rad_tot;
 }
 
-bool Quantum2D::CollisionTest2D::circleAABB(const CircleCollider *a, const AABBCollider2D *b) {
+bool Quantum2D::CollisionTest2D::circleAABB(const CircleCollider *a,
+                                            const AABBCollider2D *b) {
     tQ_pos distSq = 0, diff;
 
     if (a->getWorldPos().x < b->getMin().x) {
