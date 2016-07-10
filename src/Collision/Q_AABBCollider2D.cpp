@@ -24,7 +24,7 @@ Quantum2D::AABBCollider2D::AABBCollider2D(const BodyList &bodylist,
                                           const Diamond::Vector2<tQ_pos> &origin) 
     : Collider2D(bodylist, eAABB, body, parent, onCollision), dims(dims), origin(origin) {}
 
-void Quantum2D::AABBCollider2D::update(tQ_delta delta_ms) {
+void Quantum2D::AABBCollider2D::update(tQ_delta delta) {
     min = bodylist[body].position() + origin;
     max = min + dims;
 }

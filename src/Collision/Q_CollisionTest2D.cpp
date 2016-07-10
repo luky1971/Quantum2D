@@ -20,10 +20,10 @@
 
 typedef bool(*ColFunc)(const Quantum2D::Collider2D*, const Quantum2D::Collider2D*);
 
-bool Quantum2D::CollisionTest2D::initialized = false;
-
 namespace Quantum2D {
     namespace CollisionTest2D {
+        static bool initialized = false;
+        
         static ColFunc col_funcs[eNUMCOLTYPES][eNUMCOLTYPES];
         
         static bool colNONE(const Collider2D *a, const Collider2D *b) {
@@ -45,6 +45,10 @@ namespace Quantum2D {
         static bool colAABBCircle(const Collider2D *a, const Collider2D *b) {
             return circleAABB(static_cast<const CircleCollider*>(b), static_cast<const AABBCollider2D*>(a));
         }
+        
+        static bool colPoly2(const Collider2D *a, const Collider2D *b) {
+            return poly2(static_cast<const PolyCollider*>(a), static_cast<const PolyCollider*>(b));
+        }
     }
 }
 
@@ -56,13 +60,20 @@ bool Quantum2D::CollisionTest2D::init() {
             col_funcs[eNONE][i] = colNONE;
             col_funcs[i][eNONE] = colNONE;
         }
-
-        // TODO: Initialize collision functions for all collider type pairs
+        
         col_funcs[eAABB][eAABB] = colAABB2;
         col_funcs[eCIRCLE][eCIRCLE] = colCircle2;
-
+        col_funcs[ePOLY][ePOLY] = colPoly2;
+        
         col_funcs[eAABB][eCIRCLE] = colAABBCircle;
         col_funcs[eCIRCLE][eAABB] = colCircleAABB;
+        
+        // TODO: Initialize collision functions for all collider type pairs
+        col_funcs[eAABB][ePOLY] = colNONE;
+        col_funcs[ePOLY][eAABB] = colNONE;
+        
+        col_funcs[eCIRCLE][ePOLY] = colNONE;
+        col_funcs[ePOLY][eCIRCLE] = colNONE;
 
         initialized = true;
     }
@@ -106,3 +117,7 @@ bool Quantum2D::CollisionTest2D::circleAABB(const CircleCollider *a, const AABBC
 
     return distSq < a->getRadiusSq();
 }
+
+/*bool Quantum2D::CollisionTest2D::poly2(const PolyCollider *a, const PolyCollider *b) {
+    //
+}*/

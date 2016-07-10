@@ -26,10 +26,12 @@ Quantum2D::CircleCollider::CircleCollider(const BodyList &bodylist,
     : Collider2D(bodylist, eCIRCLE, body, parent, onCollision), 
       radius(radius), radiusSq(radius * radius), center(center) {}
 
-void Quantum2D::CircleCollider::update(tQ_delta delta_ms) {
+void Quantum2D::CircleCollider::update(tQ_delta delta) {
     using namespace Diamond;
     
     const Rigidbody2D &rbody = bodylist[body];
     world_pos = rbody.position() +
-                center.mul(Math::transMat(Qrot2rad(rbody.rotation()), 1.0f, 1.0f).m);
+                center.mul(Math::transMat(Qrot2rad(rbody.rotation()),
+                                          1.0f,
+                                          1.0f).m);
 }
