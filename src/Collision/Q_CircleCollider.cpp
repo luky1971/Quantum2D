@@ -14,6 +14,7 @@
     limitations under the License.
 */
 
+#include "duMath.h"
 #include "Q_CircleCollider.h"
 
 Quantum2D::CircleCollider::CircleCollider(const BodyList &bodylist, 
@@ -26,5 +27,9 @@ Quantum2D::CircleCollider::CircleCollider(const BodyList &bodylist,
       radius(radius), radiusSq(radius * radius), center(center) {}
 
 void Quantum2D::CircleCollider::update(tQ_delta delta_ms) {
-    world_pos = bodylist[body].position() + center;
+    using namespace Diamond;
+    
+    const Rigidbody2D &rbody = bodylist[body];
+    world_pos = rbody.position() +
+                center.mul(Math::transMat(Qrot2rad(rbody.rotation()), 1.0f, 1.0f).m);
 }
