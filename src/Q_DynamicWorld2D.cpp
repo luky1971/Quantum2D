@@ -26,6 +26,7 @@ void Quantum2D::DynamicWorld2D::step(tQ_delta delta_ms) {
     // Move rigidbodies
     for (auto i = bodies.begin(); i != bodies.end(); ++i) {
         (*i).setPosition((*i).getPosition() + ((*i).getVelocity() * delta_ms));
+        (*i).setRotation((*i).getRotation() + ((*i).angVelocity() * delta_ms));
     }
     
     // --Test collisions-- //
