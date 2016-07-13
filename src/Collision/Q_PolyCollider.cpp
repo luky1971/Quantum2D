@@ -20,15 +20,12 @@ Quantum2D::PolyCollider::PolyCollider(const BodyList &bodylist,
                                       body2d_id body,
                                       void *parent,
                                       const std::function<void(void *other)> &onCollision,
-                                      const PointList &points)
+                                      const CWPoints<PointList> &points)
     : Quantum2D::Collider2D(bodylist, ePOLY, body, parent, onCollision),
-      m_points(points), m_worldPoints(points.size()) {}
+      m_points(points.get()), m_worldPoints(points.get().size()) {}
 
 void Quantum2D::PolyCollider::update(tQ_delta delta) {
     using namespace Diamond;
-    
-    // Because user can add more points at any time
-    m_worldPoints.resize(m_points.size());
     
     const Rigidbody2D &rbody = bodylist[body];
     auto transMat = Math::transMat(Qrot2rad(rbody.rotation()), 1.0f, 1.0f);

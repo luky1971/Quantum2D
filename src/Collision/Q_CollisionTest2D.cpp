@@ -70,6 +70,16 @@ namespace Quantum2D {
                 }
             }
             
+            // DEBUG
+            std::cout << "Points ";
+            
+            for (Vector2<tQ_pos> vert : verts)
+                std::cout << vert << " ";
+            
+            std::cout << std::endl;
+            std::cout << "are to the left of line "
+                << ea << " to " << eb << std::endl;
+            
             return sep;
         }
         
