@@ -71,14 +71,17 @@ namespace Quantum2D {
             }
             
             // DEBUG
+            /*
             std::cout << "Points ";
             
             for (Vector2<tQ_pos> vert : verts)
                 std::cout << vert << " ";
             
-            std::cout << std::endl;
-            std::cout << "are to the left of line "
+            std::cout << std::endl << "are";
+            std::cout << (sep ? " " : " NOT ");
+            std::cout << "to the left of line "
                 << ea << " to " << eb << std::endl;
+            */
             
             return sep;
         }
@@ -86,7 +89,6 @@ namespace Quantum2D {
         // edge points must be specified in clockwise order!
         static bool polyVertsOutside(const PointList &edgePoints,
                                      const PointList &verts) {
-            
             for (int i = 1; i < edgePoints.size(); ++i) {
                 if (edgeVertsOutisde(edgePoints[i-1],
                                      edgePoints[i],
@@ -174,6 +176,6 @@ bool Quantum2D::CollisionTest2D::circleAABB(const CircleCollider *a,
 }
 
 bool Quantum2D::CollisionTest2D::poly2(const PolyCollider *a, const PolyCollider *b) {
-    return !polyVertsOutside(a->worldPoints(), b->worldPoints()) ||
+    return !polyVertsOutside(a->worldPoints(), b->worldPoints()) &&
            !polyVertsOutside(b->worldPoints(), a->worldPoints());
 }
