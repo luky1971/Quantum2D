@@ -54,9 +54,19 @@ namespace Quantum2D {
             return poly2(static_cast<const PolyCollider*>(a),
                          static_cast<const PolyCollider*>(b));
         }
+
+        static bool colCirclePoly(const Collider2D *a, const Collider2D *b) {
+            return circlePoly(static_cast<const CircleCollider*>(a),
+                              static_cast<const PolyCollider*>(b));
+        }
+
+        static bool colPolyCircle(const Collider2D *a, const Collider2D *b) {
+            return circlePoly(static_cast<const CircleCollider*>(b),
+                              static_cast<const PolyCollider*>(a));
+        }
         
         // ea and eb must be in clockwise order!
-        static bool edgeVertsOutisde(const Diamond::Vector2<tQ_pos> &ea,
+        static bool edgeVertsOutside(const Diamond::Vector2<tQ_pos> &ea,
                           const Diamond::Vector2<tQ_pos> &eb,
                           const PointList &verts) {
             using namespace Diamond;
@@ -90,15 +100,33 @@ namespace Quantum2D {
         static bool polyVertsOutside(const PointList &edgePoints,
                                      const PointList &verts) {
             for (int i = 1; i < edgePoints.size(); ++i) {
-                if (edgeVertsOutisde(edgePoints[i-1],
+                if (edgeVertsOutside(edgePoints[i-1],
                                      edgePoints[i],
                                      verts))
                     return true;
             }
             
-            return edgeVertsOutisde(edgePoints.back(),
+            return edgeVertsOutside(edgePoints.back(),
                                     edgePoints.front(),
                                     verts);
+        }
+
+
+        static bool circlePolyIntersect(const CircleCollider *a,
+                                        const PolyCollider *b) {
+            using namespace Diamond;
+
+            for (int i = 1; i < b->worldPoints().size(); ++i) {
+                if (Math::dist2SegmentPoint(b->worldPoints()[i],
+                                            b->worldPoints()[i-1],
+                                            a->getWorldPos()) < a->getRadiusSq()) {
+                    return true;
+                }
+            }
+
+            return Math::dist2SegmentPoint(b->worldPoints().front(),
+                                           b->worldPoints().back(),
+                                           a->getWorldPos()) < a->getRadiusSq();
         }
     }
 }
@@ -123,8 +151,8 @@ bool Quantum2D::CollisionTest2D::init() {
         col_funcs[eAABB][ePOLY] = colNONE;
         col_funcs[ePOLY][eAABB] = colNONE;
         
-        col_funcs[eCIRCLE][ePOLY] = colNONE;
-        col_funcs[ePOLY][eCIRCLE] = colNONE;
+        col_funcs[eCIRCLE][ePOLY] = colCirclePoly;
+        col_funcs[ePOLY][eCIRCLE] = colPolyCircle;
 
         initialized = true;
     }
@@ -178,4 +206,8 @@ bool Quantum2D::CollisionTest2D::circleAABB(const CircleCollider *a,
 bool Quantum2D::CollisionTest2D::poly2(const PolyCollider *a, const PolyCollider *b) {
     return !polyVertsOutside(a->worldPoints(), b->worldPoints()) &&
            !polyVertsOutside(b->worldPoints(), a->worldPoints());
+}
+
+bool Quantum2D::CollisionTest2D::circlePoly(const CircleCollider *a, const PolyCollider *b) {
+    return circlePolyIntersect(a, b);
 }
