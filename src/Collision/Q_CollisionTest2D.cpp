@@ -209,5 +209,6 @@ bool Quantum2D::CollisionTest2D::poly2(const PolyCollider *a, const PolyCollider
 }
 
 bool Quantum2D::CollisionTest2D::circlePoly(const CircleCollider *a, const PolyCollider *b) {
+    // TODO: handle case when circle is inside polygon
     return circlePolyIntersect(a, b);
 }
