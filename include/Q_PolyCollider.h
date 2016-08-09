@@ -22,7 +22,7 @@
 
 namespace Quantum2D {
     /**
-     Points MUST be specified in clockwise order!
+     Points should be specified in clockwise order.
     */
     class PolyCollider : public Collider2D {
     public:

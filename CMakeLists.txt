@@ -39,7 +39,4 @@ install(TARGETS Quantum2D DESTINATION lib)
 
 
 # Build subdirectories
-# TODO: build test for osx!
-if(WIN32)
-	add_subdirectory(test)
-endif()
+add_subdirectory(test)
