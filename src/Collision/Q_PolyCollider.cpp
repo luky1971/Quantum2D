@@ -16,13 +16,26 @@
 
 #include "Q_PolyCollider.h"
 
+#include <algorithm>
+#include "duMath.h"
+
 Quantum2D::PolyCollider::PolyCollider(const BodyList &bodylist,
                                       body2d_id body,
                                       void *parent,
                                       const std::function<void(void *other)> &onCollision,
-                                      const CWPoints<PointList> &points)
+                                      const PointList2D &points)
     : Quantum2D::Collider2D(bodylist, ePOLY, body, parent, onCollision),
-      m_points(points.get()), m_worldPoints(points.get().size()) {}
+      m_points(points), m_worldPoints(points.size()) {
+    // TODO: make this check more than just the first three points!
+    // Look up efficient algorithm for determining if a set of points
+    // is clockwise
+    if (m_points.size() >= 3 &&
+        Diamond::Math::leftOf(points[2], points[0], points[1])) {
+
+        std::reverse(m_points.begin(), m_points.end());
+
+    }
+}
 
 void Quantum2D::PolyCollider::update(tQ_delta delta) {
     using namespace Diamond;

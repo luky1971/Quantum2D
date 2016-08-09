@@ -68,7 +68,7 @@ namespace Quantum2D {
         // ea and eb must be in clockwise order!
         static bool edgeVertsOutside(const Diamond::Vector2<tQ_pos> &ea,
                           const Diamond::Vector2<tQ_pos> &eb,
-                          const PointList &verts) {
+                          const PointList2D &verts) {
             using namespace Diamond;
             
             bool sep = true;
@@ -97,8 +97,8 @@ namespace Quantum2D {
         }
         
         // edge points must be specified in clockwise order!
-        static bool polyVertsOutside(const PointList &edgePoints,
-                                     const PointList &verts) {
+        static bool polyVertsOutside(const PointList2D &edgePoints,
+                                     const PointList2D &verts) {
             for (int i = 1; i < edgePoints.size(); ++i) {
                 if (edgeVertsOutside(edgePoints[i-1],
                                      edgePoints[i],
