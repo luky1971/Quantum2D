@@ -21,38 +21,25 @@
 #include "Q_typedefs.h"
 
 namespace Quantum2D {
-    class Rigidbody2D {
+    template <typename Scalar>
+    class LRigidbody2D {
     public:
-        Rigidbody2D() : m_rotation(0), m_angVelocity(0) {}
-
-        const Diamond::Vector2<tQ_pos>  &position() const { return m_position; }
-        Diamond::Vector2<tQ_pos>        &position() { return m_position; }
-
-        tQ_rot                          rotation() const { return m_rotation; }
-        tQ_rot                          &rotation() { return m_rotation; }
-
-        const Diamond::Vector2<tQ_pos>  &velocity() const { return m_velocity; }
-        Diamond::Vector2<tQ_pos>        &velocity() { return m_velocity; }
-
-        tQ_rot                          angVelocity() const { return m_angVelocity; }
-        tQ_rot                          &angVelocity() { return m_angVelocity; }
-        
-        
-        void update(tQ_delta delta) {
-            integrate(delta);
-        }
+        LRigidbody2D(Scalar &posX, Scalar &posY, Scalar &rot)
+            : positionX(posX),
+              positionY(posY),
+              rotation(rot) {}
         
         void integrate(tQ_delta delta) {
-            m_position += m_velocity * delta;
-            m_rotation += m_angVelocity * delta;
+            positionX += velocityX * delta;
+            positionY += velocityY * delta;
+            rotation  += angVelocity * delta;
         }
-
-    private:
-        Diamond::Vector2<tQ_pos> m_position;
-        tQ_rot m_rotation;
-
-        Diamond::Vector2<tQ_pos> m_velocity;
-        tQ_rot m_angVelocity;
+        
+        Scalar &positionX, &positionY;
+        Scalar &rotation;
+        
+        Scalar velocityX, velocityY;
+        Scalar angVelocity;
     };
 }
 
