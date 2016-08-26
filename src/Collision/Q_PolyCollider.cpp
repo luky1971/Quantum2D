@@ -23,8 +23,9 @@ Quantum2D::PolyCollider::PolyCollider(const BodyList &bodylist,
                                       body2d_id body,
                                       void *parent,
                                       const std::function<void(void *other)> &onCollision,
-                                      const PointList2D &points)
-    : Quantum2D::Collider2D(bodylist, ePOLY, body, parent, onCollision),
+                                      const PointList2D &points,
+                                      QLayer layer)
+    : Quantum2D::Collider2D(bodylist, ePOLY, body, parent, onCollision, layer),
       m_points(points), m_worldPoints(points.size()) {
     // TODO: make this check more than just the first three points!
     // Look up efficient algorithm for determining if a set of points

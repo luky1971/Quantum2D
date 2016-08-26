@@ -26,6 +26,30 @@ void colFunc(void *ptr) {
     //
 }
 
+// TEST(LayerTest, MaxLayers) {
+//     EXPECT_EQ(Quantum2D::MAX_LAYERS, 256);
+// }
+
+TEST(LayerTest, LayerSet) {
+    DynamicWorld2D world;
+    ASSERT_TRUE(world.init(false));
+
+    world.setLayersCollide(0, 0, 1);
+    EXPECT_TRUE(world.doLayersCollide(0, 0));
+
+    world.setLayersCollide(0, 0, 0);
+    EXPECT_FALSE(world.doLayersCollide(0, 0));
+
+
+    world.setLayersCollide(4, 6, 1);
+    EXPECT_TRUE(world.doLayersCollide(4, 6));
+    EXPECT_TRUE(world.doLayersCollide(6, 4));
+
+    world.setLayersCollide(4, 6, 0);
+    EXPECT_FALSE(world.doLayersCollide(4, 6));
+    EXPECT_FALSE(world.doLayersCollide(6, 4));    
+}
+
 TEST(PolyColliderTest, PersistsCWPoints) {
     DynamicWorld2D world;
     ASSERT_TRUE(world.init());

@@ -21,8 +21,10 @@ Quantum2D::AABBCollider2D::AABBCollider2D(const BodyList &bodylist,
                                           void *parent, 
                                           const std::function<void(void *other)> &onCollision, 
                                           const Diamond::Vector2<tQ_pos> &dims, 
-                                          const Diamond::Vector2<tQ_pos> &origin) 
-    : Collider2D(bodylist, eAABB, body, parent, onCollision), dims(dims), origin(origin) {}
+                                          const Diamond::Vector2<tQ_pos> &origin,
+                                          QLayer layer)
+    : Collider2D(bodylist, eAABB, body, parent, onCollision, layer),
+      dims(dims), origin(origin) {}
 
 void Quantum2D::AABBCollider2D::update(tQ_delta delta) {
     min = bodylist[body].position() + origin;

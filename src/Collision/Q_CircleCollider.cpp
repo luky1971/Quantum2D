@@ -22,8 +22,9 @@ Quantum2D::CircleCollider::CircleCollider(const BodyList &bodylist,
                                           void *parent,
                                           const std::function<void(void *other)> &onCollision,
                                           tQ_pos radius,
-                                          const Diamond::Vector2<tQ_pos> &center)
-    : Collider2D(bodylist, eCIRCLE, body, parent, onCollision), 
+                                          const Diamond::Vector2<tQ_pos> &center,
+                                          QLayer layer)
+    : Collider2D(bodylist, eCIRCLE, body, parent, onCollision, layer),
       radius(radius), radiusSq(radius * radius), center(center) {}
 
 void Quantum2D::CircleCollider::update(tQ_delta delta) {

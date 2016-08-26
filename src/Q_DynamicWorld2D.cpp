@@ -18,7 +18,12 @@
 #include "Q_CollisionTest2D.h"
 
 
-bool Quantum2D::DynamicWorld2D::init() {
+bool Quantum2D::DynamicWorld2D::init(bool allLayersCollide) {
+    if (allLayersCollide) {
+        for (int i = 0; i < MAX_LAYERS; ++i) {
+            layerMap[i].set(); // Turn on collision between all layers
+        }
+    }
     return CollisionTest2D::init();
 }
 
@@ -49,7 +54,8 @@ void Quantum2D::DynamicWorld2D::step(tQ_delta delta) {
     // unsigned when size = 0 will cause mass chaos and destruction.
     for (int i = 0; i < (int64_t)colliderVec.size() - 1; ++i) {
         for (int j = i + 1; j < colliderVec.size(); ++j) {
-            if (CollisionTest2D::collide(colliderVec[i].get(), colliderVec[j].get())) {
+            if (doLayersCollide(colliderVec[i]->getLayer(), colliderVec[j]->getLayer()) &&
+                CollisionTest2D::collide(colliderVec[i].get(), colliderVec[j].get())) {
                 // col = true; // DEBUG
                 pairs.emplace_back(colliderVec[i].get(), colliderVec[j].get());
                 // std::cout << "Collision!" << std::endl; // DEBUG
