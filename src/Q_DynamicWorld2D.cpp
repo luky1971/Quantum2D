@@ -20,12 +20,24 @@
 
 bool Quantum2D::DynamicWorld2D::init(bool allLayersCollide) {
     if (allLayersCollide) {
-        for (int i = 0; i < MAX_LAYERS; ++i) {
-            layerMap[i].set(); // Turn on collision between all layers
-        }
+        allLayersCollideOn();
     }
     return CollisionTest2D::init();
 }
+
+
+void Quantum2D::DynamicWorld2D::allLayersCollideOn() {
+    for (int i = 0; i < MAX_LAYERS; ++i) {
+        layerMap[i].set();
+    }
+}
+
+void Quantum2D::DynamicWorld2D::allLayersCollideOff() {
+    for (int i = 0; i < MAX_LAYERS; ++i) {
+        layerMap[i].reset();
+    }
+}
+
 
 void Quantum2D::DynamicWorld2D::step(tQ_delta delta) {
     // Move rigidbodies

@@ -52,10 +52,19 @@ namespace Quantum2D {
         /**
          Checks if collision between the given layers is on.
         */
-        bool doLayersCollide(QLayer layer1, QLayer layer2) {
+        bool doLayersCollide(QLayer layer1, QLayer layer2) const {
             return layerMap[layer1][layer2];
         }
         
+        /**
+         Turn on collision between all layers.
+        */
+        void allLayersCollideOn();
+        
+        /**
+         Turn off collision between all layers.
+        */
+        void allLayersCollideOff();
 
         /**
          Returns a reference to the rigidbody with the given id.
@@ -116,7 +125,7 @@ namespace Quantum2D {
         /**
          Get the pairs of colliders that collided in the last simulation step.
         */
-        const std::vector<ColliderPair> &getCollidePairs() { return pairs; }
+        const std::vector<ColliderPair> &getCollidePairs() const { return pairs; }
 
         /**
 		 Invokes callback functions for this frame's collision pairs.
