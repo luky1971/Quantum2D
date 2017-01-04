@@ -28,6 +28,11 @@ include_directories(
 	extern/DiamondUtils/include
 )
 
+# Libraries
+if(APPLE)
+	set(LINK_LIBS -stdlib=libc++)
+endif()
+
 
 # Get source files
 file(GLOB_RECURSE SOURCES src/*.cpp)
@@ -35,8 +40,10 @@ file(GLOB_RECURSE SOURCES src/*.cpp)
 
 # Build Quantum2D library
 add_library(Quantum2D STATIC ${SOURCES})
+target_link_libraries(Quantum2D ${LINK_LIBS})
 install(TARGETS Quantum2D DESTINATION lib)
 
 
 # Build subdirectories
-add_subdirectory(test)
+# TODO: this will work on mac if you rebuild gtest with clang
+# add_subdirectory(test)
