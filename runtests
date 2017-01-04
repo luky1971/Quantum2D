@@ -1,0 +1,4 @@
+#!/bin/bash
+
+./Debug/test/TestQuantum2D
+./Release/test/TestQuantum2D
