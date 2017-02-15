@@ -42,7 +42,7 @@ void Quantum2D::PolyCollider::update(tQ_delta delta) {
     using namespace Diamond;
     
     const Rigidbody2D &rbody = bodylist[body];
-    auto transMat = Math::transMat(Qrot2rad(rbody.rotation()), 1.0f, 1.0f);
+    auto transMat = Math::transMat(Qrot2rad(rbody.rotation()), rbody.scale().x, rbody.scale().y);
     
     for (int i = 0; i < m_worldPoints.size(); ++i) {
         m_worldPoints[i] = rbody.position() + m_points[i].mul(transMat.m);

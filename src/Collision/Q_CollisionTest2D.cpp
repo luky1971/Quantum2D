@@ -116,17 +116,19 @@ namespace Quantum2D {
                                         const PolyCollider *b) {
             using namespace Diamond;
 
+            auto aRadiusSq = a->getWorldRadius() * a->getWorldRadius();
+            
             for (int i = 1; i < b->worldPoints().size(); ++i) {
                 if (Math::dist2SegmentPoint(b->worldPoints()[i],
                                             b->worldPoints()[i-1],
-                                            a->getWorldPos()) < a->getRadiusSq()) {
+                                            a->getWorldPos()) < aRadiusSq) {
                     return true;
                 }
             }
 
             return Math::dist2SegmentPoint(b->worldPoints().front(),
                                            b->worldPoints().back(),
-                                           a->getWorldPos()) < a->getRadiusSq();
+                                           a->getWorldPos()) < aRadiusSq;
         }
     }
 }
@@ -174,7 +176,7 @@ bool Quantum2D::CollisionTest2D::AABB2(const AABBCollider2D *a,
 
 bool Quantum2D::CollisionTest2D::circle2(const CircleCollider *a,
                                          const CircleCollider *b) {
-    tQ_pos rad_tot = a->getRadius() + b->getRadius();
+    tQ_pos rad_tot = a->getWorldRadius() + b->getWorldRadius();
     return a->getWorldPos().distanceSq(b->getWorldPos()) < rad_tot * rad_tot;
 }
 
@@ -200,7 +202,7 @@ bool Quantum2D::CollisionTest2D::circleAABB(const CircleCollider *a,
         distSq += diff * diff;
     }
 
-    return distSq < a->getRadiusSq();
+    return distSq < a->getWorldRadius() * a->getWorldRadius();
 }
 
 bool Quantum2D::CollisionTest2D::poly2(const PolyCollider *a, const PolyCollider *b) {

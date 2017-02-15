@@ -27,6 +27,9 @@ Quantum2D::AABBCollider2D::AABBCollider2D(const BodyList &bodylist,
       dims(dims), origin(origin) {}
 
 void Quantum2D::AABBCollider2D::update(tQ_delta delta) {
-    min = bodylist[body].position() + origin;
-    max = min + dims;
+    using namespace Diamond;
+    
+    // TODO: are we scaling this properly?
+    min = bodylist[body].position() + Vector2<tQ_pos>(origin).scalar(bodylist[body].scale());
+    max = min + Vector2<tQ_pos>(dims).scalar(bodylist[body].scale());
 }
