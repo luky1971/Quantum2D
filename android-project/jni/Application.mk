@@ -18,7 +18,7 @@ APP_ABI := armeabi armeabi-v7a
 
 APP_MODULES := Quantum2D
 
-APP_STL := gnustl_shared
+APP_STL := c++_shared
 
 APP_CPPFLAGS += -std=c++11
 APP_CPPFLAGS += -fexceptions
