@@ -17,73 +17,68 @@
 #include "Q_DynamicWorld2D.h"
 #include "Q_CollisionTest2D.h"
 
-
 bool Quantum2D::DynamicWorld2D::init(bool allLayersCollide) {
-    if (allLayersCollide) {
-        allLayersCollideOn();
-    }
-    return CollisionTest2D::init();
+  if (allLayersCollide) {
+    allLayersCollideOn();
+  }
+  return CollisionTest2D::init();
 }
 
-
 void Quantum2D::DynamicWorld2D::allLayersCollideOn() {
-    for (int i = 0; i < MAX_LAYERS; ++i) {
-        layerMap[i].set();
-    }
+  for (int i = 0; i < MAX_LAYERS; ++i) {
+    layerMap[i].set();
+  }
 }
 
 void Quantum2D::DynamicWorld2D::allLayersCollideOff() {
-    for (int i = 0; i < MAX_LAYERS; ++i) {
-        layerMap[i].reset();
-    }
+  for (int i = 0; i < MAX_LAYERS; ++i) {
+    layerMap[i].reset();
+  }
 }
-
 
 void Quantum2D::DynamicWorld2D::step(tQ_delta delta) {
-    // Move rigidbodies
-    for (auto i = bodies.begin(); i != bodies.end(); ++i) {
-        i->update(delta);
-    }
-    
-    // Update colliders
-    for (auto i = colliders.begin(); i != colliders.end(); ++i) {
-        (*i)->update(delta);
-    }
-    
-    
-    // --Test collisions-- //
-    
-    
-    // bool col = false; // DEBUG
-    // Pairwise test collisions. TODO: broad phase
-    
-    pairs.clear();
+  // Move rigidbodies
+  for (auto i = bodies.begin(); i != bodies.end(); ++i) {
+    i->update(delta);
+  }
 
-    std::vector<std::unique_ptr<Collider2D> > &colliderVec = colliders.data();
-    
-    // Need to cast colliderVec.size() to int before subtracting 1
-    // because size type might be unsigned, and subtracting 1 from
-    // unsigned when size = 0 will cause mass chaos and destruction.
-    for (int i = 0; i < (int64_t)colliderVec.size() - 1; ++i) {
-        for (int j = i + 1; j < colliderVec.size(); ++j) {
-            if (doLayersCollide(colliderVec[i]->getLayer(), colliderVec[j]->getLayer()) &&
-                CollisionTest2D::collide(colliderVec[i].get(), colliderVec[j].get())) {
-                // col = true; // DEBUG
-                pairs.emplace_back(colliderVec[i].get(), colliderVec[j].get());
-                // std::cout << "Collision!" << std::endl; // DEBUG
-            }
-        }
+  // Update colliders
+  for (auto i = colliders.begin(); i != colliders.end(); ++i) {
+    (*i)->update(delta);
+  }
+
+  // --Test collisions-- //
+
+  // bool col = false; // DEBUG
+  // Pairwise test collisions. TODO: broad phase
+
+  pairs.clear();
+
+  std::vector<std::unique_ptr<Collider2D> > &colliderVec = colliders.data();
+
+  // Need to cast colliderVec.size() to int before subtracting 1
+  // because size type might be unsigned, and subtracting 1 from
+  // unsigned when size = 0 will cause mass chaos and destruction.
+  for (int i = 0; i < (int64_t)colliderVec.size() - 1; ++i) {
+    for (int j = i + 1; j < colliderVec.size(); ++j) {
+      if (doLayersCollide(colliderVec[i]->getLayer(),
+                          colliderVec[j]->getLayer()) &&
+          CollisionTest2D::collide(colliderVec[i].get(),
+                                   colliderVec[j].get())) {
+        // col = true; // DEBUG
+        pairs.emplace_back(colliderVec[i].get(), colliderVec[j].get());
+        // std::cout << "Collision!" << std::endl; // DEBUG
+      }
     }
-    
-    /*if (!col)
-        std::cout << "No collision" << std::endl; // DEBUG*/
+  }
+
+  /*if (!col)
+      std::cout << "No collision" << std::endl; // DEBUG*/
 }
-
 
 void Quantum2D::DynamicWorld2D::callbackCollisions() {
-    for (ColliderPair pair : pairs) {
-        pair.a->onCollide(pair.b);
-        pair.b->onCollide(pair.a);
-    }
+  for (ColliderPair pair : pairs) {
+    pair.a->onCollide(pair.b);
+    pair.b->onCollide(pair.a);
+  }
 }
-

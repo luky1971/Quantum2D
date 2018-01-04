@@ -14,27 +14,25 @@
     limitations under the License.
 */
 
-#include "duMath.h"
 #include "Q_CircleCollider.h"
+#include "duMath.h"
 
-Quantum2D::CircleCollider::CircleCollider(const BodyList &bodylist, 
-                                          body2d_id body,
-                                          void *parent,
-                                          const std::function<void(void *other)> &onCollision,
-                                          tQ_pos radius,
-                                          const Diamond::Vector2<tQ_pos> &center,
-                                          QLayer layer)
+Quantum2D::CircleCollider::CircleCollider(
+    const BodyList &bodylist, body2d_id body, void *parent,
+    const std::function<void(void *other)> &onCollision, tQ_pos radius,
+    const Diamond::Vector2<tQ_pos> &center, QLayer layer)
     : Collider2D(bodylist, eCIRCLE, body, parent, onCollision, layer),
-      radius(radius), center(center) {}
+      radius(radius),
+      center(center) {}
 
 void Quantum2D::CircleCollider::update(tQ_delta delta) {
-    using namespace Diamond;
-    
-    const Rigidbody2D &rbody = bodylist[body];
-    // choosing to scale with x is arbitrary
-    world_radius = rbody.scale().x * radius;
-    world_pos = rbody.position() +
-                center.mul(Math::transMat(Qrot2rad(rbody.rotation()),
-                                          rbody.scale().x,
-                                          rbody.scale().y).m);
+  using namespace Diamond;
+
+  const Rigidbody2D &rbody = bodylist[body];
+  // choosing to scale with x is arbitrary
+  world_radius = rbody.scale().x * radius;
+  world_pos = rbody.position() +
+              center.mul(Math::transMat(Qrot2rad(rbody.rotation()),
+                                        rbody.scale().x, rbody.scale().y)
+                             .m);
 }

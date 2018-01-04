@@ -23,121 +23,125 @@
 #include "Q_typedefs.h"
 
 namespace Quantum2D {
-    struct ColliderPair {
-    public:
-        ColliderPair(Collider2D *a, Collider2D *b) : a(a), b(b) {}
+struct ColliderPair {
+ public:
+  ColliderPair(Collider2D *a, Collider2D *b) : a(a), b(b) {}
 
-        Collider2D *a, *b;
-    };
+  Collider2D *a, *b;
+};
 
+class DynamicWorld2D {
+ public:
+  /**
+   Initializes the simulation world.
+   Returns true if initialization was successful, otherwise false.
+  */
+  bool init(bool allLayersCollide = true);
 
-    class DynamicWorld2D {
-    public:
-        /**
-         Initializes the simulation world.
-         Returns true if initialization was successful, otherwise false.
-        */
-        bool init(bool allLayersCollide = true);
+  /**
+   Turns collision between the given layers
+   on (if collides = true) or off (collides = false)
+  */
+  void setLayersCollide(QLayer layer1, QLayer layer2, bool collides) {
+    layerMap[layer1][layer2] = collides;
+    layerMap[layer2][layer1] = collides;
+  }
 
-        
-        /**
-         Turns collision between the given layers
-         on (if collides = true) or off (collides = false)
-        */
-        void setLayersCollide(QLayer layer1, QLayer layer2, bool collides) {
-            layerMap[layer1][layer2] = collides;
-            layerMap[layer2][layer1] = collides;
-        }
-        
-        /**
-         Checks if collision between the given layers is on.
-        */
-        bool doLayersCollide(QLayer layer1, QLayer layer2) const {
-            return layerMap[layer1][layer2];
-        }
-        
-        /**
-         Turn on collision between all layers.
-        */
-        void allLayersCollideOn();
-        
-        /**
-         Turn off collision between all layers.
-        */
-        void allLayersCollideOff();
+  /**
+   Checks if collision between the given layers is on.
+  */
+  bool doLayersCollide(QLayer layer1, QLayer layer2) const {
+    return layerMap[layer1][layer2];
+  }
 
-        /**
-         Returns a reference to the rigidbody with the given id.
-         Note: the reference returned is only guaranteed to be valid until the next time a new rigidbody is created.
-         Only use this reference immediately after calling this function!
-        */
-        Rigidbody2D &getRigidbody(body2d_id body) { return bodies[body]; }
-        const Rigidbody2D &getRigidbody(body2d_id body) const { return bodies[body]; }
+  /**
+   Turn on collision between all layers.
+  */
+  void allLayersCollideOn();
 
-        /**
-         Creates a rigidbody object attached to the given transform and returns its id.
-         The returned id can be used to access the rigidbody with getRigidbody(id).
-        */
-        body2d_id genRigidbody() { return bodies.emplace_back(); }
+  /**
+   Turn off collision between all layers.
+  */
+  void allLayersCollideOff();
 
-        /**
-         Frees the given rigidbody's memory.
-        */
-        void freeRigidbody(body2d_id body) { bodies.erase(body); }
+  /**
+   Returns a reference to the rigidbody with the given id.
+   Note: the reference returned is only guaranteed to be valid until the next
+   time a new rigidbody is created. Only use this reference immediately after
+   calling this function!
+  */
+  Rigidbody2D &getRigidbody(body2d_id body) { return bodies[body]; }
+  const Rigidbody2D &getRigidbody(body2d_id body) const { return bodies[body]; }
 
+  /**
+   Creates a rigidbody object attached to the given transform and returns its
+   id. The returned id can be used to access the rigidbody with
+   getRigidbody(id).
+  */
+  body2d_id genRigidbody() { return bodies.emplace_back(); }
 
-        /**
-         Returns a pointer to the collider with the given id.
-        */
-        Collider2D *getCollider(collider2_id collider) { return colliders[collider].get(); }
-        const Collider2D *getCollider(collider2_id collider) const { return colliders[collider].get(); }
+  /**
+   Frees the given rigidbody's memory.
+  */
+  void freeRigidbody(body2d_id body) { bodies.erase(body); }
 
-        /**
-         Creates a 2D collider object of the given type using the given constructor arguments 
-         and adds it to the collision detection system.
-         NOTE: the first constructor argument of all collider types, bodylist, is provided.
-         You only need to call this function with the subsequent arguments.
-         The returned id can be used to access the collider with getCollider(id).
-        */
-        template <class T, typename... Args>
-        collider2_id genCollider(Args&&... args) {
-            return colliders.emplace_back(new T(bodies, std::forward<Args>(args)...));
-        }
+  /**
+   Returns a pointer to the collider with the given id.
+  */
+  Collider2D *getCollider(collider2_id collider) {
+    return colliders[collider].get();
+  }
+  const Collider2D *getCollider(collider2_id collider) const {
+    return colliders[collider].get();
+  }
 
-        /**
-         Adds a collider to the collision detection system.
-         The owner of the given pointer should now be QuantumWorld2D!
-         The returned id can be used to access the collider with getCollider(id).
-        */
-        collider2_id addCollider(Collider2D *col) { return colliders.emplace_back(col); }
+  /**
+   Creates a 2D collider object of the given type using the given constructor
+   arguments and adds it to the collision detection system. NOTE: the first
+   constructor argument of all collider types, bodylist, is provided. You only
+   need to call this function with the subsequent arguments. The returned id can
+   be used to access the collider with getCollider(id).
+  */
+  template <class T, typename... Args>
+  collider2_id genCollider(Args &&... args) {
+    return colliders.emplace_back(new T(bodies, std::forward<Args>(args)...));
+  }
 
-        /**
-         Frees the given collider's memory.
-        */
-        void freeCollider(collider2_id collider) { colliders.erase(collider); }
+  /**
+   Adds a collider to the collision detection system.
+   The owner of the given pointer should now be QuantumWorld2D!
+   The returned id can be used to access the collider with getCollider(id).
+  */
+  collider2_id addCollider(Collider2D *col) {
+    return colliders.emplace_back(col);
+  }
 
+  /**
+   Frees the given collider's memory.
+  */
+  void freeCollider(collider2_id collider) { colliders.erase(collider); }
 
-        /**
-         Steps the physics simulation by the number of milliseconds given.
-        */
-        void step(tQ_delta delta);
+  /**
+   Steps the physics simulation by the number of milliseconds given.
+  */
+  void step(tQ_delta delta);
 
-        /**
-         Get the pairs of colliders that collided in the last simulation step.
-        */
-        const std::vector<ColliderPair> &getCollidePairs() const { return pairs; }
+  /**
+   Get the pairs of colliders that collided in the last simulation step.
+  */
+  const std::vector<ColliderPair> &getCollidePairs() const { return pairs; }
 
-        /**
-		 Invokes callback functions for this frame's collision pairs.
-        */
-		void callbackCollisions();
+  /**
+           Invokes callback functions for this frame's collision pairs.
+  */
+  void callbackCollisions();
 
-    private:
-        BodyList                  bodies;
-        ColliderList              colliders;
-        std::vector<ColliderPair> pairs;
-        std::bitset<MAX_LAYERS>   layerMap[MAX_LAYERS];
-    };
-}
+ private:
+  BodyList bodies;
+  ColliderList colliders;
+  std::vector<ColliderPair> pairs;
+  std::bitset<MAX_LAYERS> layerMap[MAX_LAYERS];
+};
+}  // namespace Quantum2D
 
-#endif // Q_DYNAMIC_WORLD_2D_H
+#endif  // Q_DYNAMIC_WORLD_2D_H

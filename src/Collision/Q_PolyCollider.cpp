@@ -19,32 +19,30 @@
 #include <algorithm>
 #include "duMath.h"
 
-Quantum2D::PolyCollider::PolyCollider(const BodyList &bodylist,
-                                      body2d_id body,
-                                      void *parent,
-                                      const std::function<void(void *other)> &onCollision,
-                                      const PointList2D &points,
-                                      QLayer layer)
+Quantum2D::PolyCollider::PolyCollider(
+    const BodyList &bodylist, body2d_id body, void *parent,
+    const std::function<void(void *other)> &onCollision,
+    const PointList2D &points, QLayer layer)
     : Quantum2D::Collider2D(bodylist, ePOLY, body, parent, onCollision, layer),
-      m_points(points), m_worldPoints(points.size()) {
-    // TODO: make this check more than just the first three points!
-    // Look up efficient algorithm for determining if a set of points
-    // is clockwise
-    if (m_points.size() >= 3 &&
-        Diamond::Math::leftOf(points[2], points[0], points[1])) {
-
-        std::reverse(m_points.begin(), m_points.end());
-
-    }
+      m_points(points),
+      m_worldPoints(points.size()) {
+  // TODO: make this check more than just the first three points!
+  // Look up efficient algorithm for determining if a set of points
+  // is clockwise
+  if (m_points.size() >= 3 &&
+      Diamond::Math::leftOf(points[2], points[0], points[1])) {
+    std::reverse(m_points.begin(), m_points.end());
+  }
 }
 
 void Quantum2D::PolyCollider::update(tQ_delta delta) {
-    using namespace Diamond;
-    
-    const Rigidbody2D &rbody = bodylist[body];
-    auto transMat = Math::transMat(Qrot2rad(rbody.rotation()), rbody.scale().x, rbody.scale().y);
-    
-    for (int i = 0; i < m_worldPoints.size(); ++i) {
-        m_worldPoints[i] = rbody.position() + m_points[i].mul(transMat.m);
-    }
+  using namespace Diamond;
+
+  const Rigidbody2D &rbody = bodylist[body];
+  auto transMat = Math::transMat(Qrot2rad(rbody.rotation()), rbody.scale().x,
+                                 rbody.scale().y);
+
+  for (int i = 0; i < m_worldPoints.size(); ++i) {
+    m_worldPoints[i] = rbody.position() + m_points[i].mul(transMat.m);
+  }
 }

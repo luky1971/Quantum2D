@@ -20,40 +20,37 @@
 #include "Q_Collider2D.h"
 
 namespace Quantum2D {
-    /**
-     Points must contain at least three vectors forming
-     the boundary of a convex polygon. Consecutive points
-     should be adjacent on the polygon in a consistent order
-     (clockwise or counterclockwise).
-    */
-    class PolyCollider : public Collider2D {
-    public:
-        PolyCollider(const BodyList &bodylist,
-                     body2d_id body,
-                     void *parent,
-                     const std::function<void(void *other)> &onCollision,
-                     const PointList2D &points,
-                     QLayer layer = 0);
-        
-        /**
-         Get the coordinates of this polygon's vertices
-         in the parent rigidbody's local space.
-         Points are in clockwise order.
-        */
-        const PointList2D &points() const { return m_points; }
-        
-        /**
-         Get the current coordinates of this polygon's vertices
-         in world space.
-        */
-        const PointList2D &worldPoints() const { return m_worldPoints; }
-        
-        void update(tQ_delta delta) override;
-        
-    private:
-        PointList2D m_points;
-        PointList2D m_worldPoints;
-    };
-}
+/**
+ Points must contain at least three vectors forming
+ the boundary of a convex polygon. Consecutive points
+ should be adjacent on the polygon in a consistent order
+ (clockwise or counterclockwise).
+*/
+class PolyCollider : public Collider2D {
+ public:
+  PolyCollider(const BodyList &bodylist, body2d_id body, void *parent,
+               const std::function<void(void *other)> &onCollision,
+               const PointList2D &points, QLayer layer = 0);
 
-#endif // Q_POLY_COLLIDER_H
+  /**
+   Get the coordinates of this polygon's vertices
+   in the parent rigidbody's local space.
+   Points are in clockwise order.
+  */
+  const PointList2D &points() const { return m_points; }
+
+  /**
+   Get the current coordinates of this polygon's vertices
+   in world space.
+  */
+  const PointList2D &worldPoints() const { return m_worldPoints; }
+
+  void update(tQ_delta delta) override;
+
+ private:
+  PointList2D m_points;
+  PointList2D m_worldPoints;
+};
+}  // namespace Quantum2D
+
+#endif  // Q_POLY_COLLIDER_H
