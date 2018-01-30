@@ -1,0 +1,327 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		842A7DD6201F9DA0005F90FD /* Q_DynamicWorld2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842A7DD5201F9DA0005F90FD /* Q_DynamicWorld2D.cpp */; };
+		842A7E33201FA817005F90FD /* Q_AABBCollider2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842A7E2F201FA816005F90FD /* Q_AABBCollider2D.cpp */; };
+		842A7E34201FA817005F90FD /* Q_CollisionTest2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842A7E30201FA816005F90FD /* Q_CollisionTest2D.cpp */; };
+		842A7E35201FA817005F90FD /* Q_PolyCollider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842A7E31201FA817005F90FD /* Q_PolyCollider.cpp */; };
+		842A7E36201FA817005F90FD /* Q_CircleCollider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 842A7E32201FA817005F90FD /* Q_CircleCollider.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		842A7DBC201F9CDD005F90FD /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		842A7DBE201F9CDD005F90FD /* libQuantum2D.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQuantum2D.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		842A7DCB201F9D39005F90FD /* Q_Collider2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Q_Collider2D.h; path = ../../../include/Q_Collider2D.h; sourceTree = "<group>"; };
+		842A7DCC201F9D39005F90FD /* Q_AABBCollider2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Q_AABBCollider2D.h; path = ../../../include/Q_AABBCollider2D.h; sourceTree = "<group>"; };
+		842A7DCD201F9D39005F90FD /* Q_CollisionTest2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Q_CollisionTest2D.h; path = ../../../include/Q_CollisionTest2D.h; sourceTree = "<group>"; };
+		842A7DCE201F9D39005F90FD /* Q_Rigidbody2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Q_Rigidbody2D.h; path = ../../../include/Q_Rigidbody2D.h; sourceTree = "<group>"; };
+		842A7DCF201F9D3A005F90FD /* Q_CircleCollider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Q_CircleCollider.h; path = ../../../include/Q_CircleCollider.h; sourceTree = "<group>"; };
+		842A7DD0201F9D3A005F90FD /* Q_PolyCollider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Q_PolyCollider.h; path = ../../../include/Q_PolyCollider.h; sourceTree = "<group>"; };
+		842A7DD1201F9D3A005F90FD /* Q_DynamicWorld2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Q_DynamicWorld2D.h; path = ../../../include/Q_DynamicWorld2D.h; sourceTree = "<group>"; };
+		842A7DD2201F9D3A005F90FD /* Q_typedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Q_typedefs.h; path = ../../../include/Q_typedefs.h; sourceTree = "<group>"; };
+		842A7DD5201F9DA0005F90FD /* Q_DynamicWorld2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Q_DynamicWorld2D.cpp; path = ../../../src/Q_DynamicWorld2D.cpp; sourceTree = "<group>"; };
+		842A7E2F201FA816005F90FD /* Q_AABBCollider2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Q_AABBCollider2D.cpp; path = ../../../src/Collision/Q_AABBCollider2D.cpp; sourceTree = "<group>"; };
+		842A7E30201FA816005F90FD /* Q_CollisionTest2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Q_CollisionTest2D.cpp; path = ../../../src/Collision/Q_CollisionTest2D.cpp; sourceTree = "<group>"; };
+		842A7E31201FA817005F90FD /* Q_PolyCollider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Q_PolyCollider.cpp; path = ../../../src/Collision/Q_PolyCollider.cpp; sourceTree = "<group>"; };
+		842A7E32201FA817005F90FD /* Q_CircleCollider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Q_CircleCollider.cpp; path = ../../../src/Collision/Q_CircleCollider.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		842A7DBB201F9CDD005F90FD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		842A7DB5201F9CDD005F90FD = {
+			isa = PBXGroup;
+			children = (
+				842A7DC0201F9CDD005F90FD /* Public Headers */,
+				842A7DD3201F9D78005F90FD /* Library Source */,
+				842A7DBF201F9CDD005F90FD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		842A7DBF201F9CDD005F90FD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				842A7DBE201F9CDD005F90FD /* libQuantum2D.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		842A7DC0201F9CDD005F90FD /* Public Headers */ = {
+			isa = PBXGroup;
+			children = (
+				842A7DCC201F9D39005F90FD /* Q_AABBCollider2D.h */,
+				842A7DCF201F9D3A005F90FD /* Q_CircleCollider.h */,
+				842A7DCB201F9D39005F90FD /* Q_Collider2D.h */,
+				842A7DCD201F9D39005F90FD /* Q_CollisionTest2D.h */,
+				842A7DD1201F9D3A005F90FD /* Q_DynamicWorld2D.h */,
+				842A7DD0201F9D3A005F90FD /* Q_PolyCollider.h */,
+				842A7DCE201F9D39005F90FD /* Q_Rigidbody2D.h */,
+				842A7DD2201F9D3A005F90FD /* Q_typedefs.h */,
+			);
+			path = "Public Headers";
+			sourceTree = "<group>";
+		};
+		842A7DD3201F9D78005F90FD /* Library Source */ = {
+			isa = PBXGroup;
+			children = (
+				842A7E2F201FA816005F90FD /* Q_AABBCollider2D.cpp */,
+				842A7E32201FA817005F90FD /* Q_CircleCollider.cpp */,
+				842A7E30201FA816005F90FD /* Q_CollisionTest2D.cpp */,
+				842A7E31201FA817005F90FD /* Q_PolyCollider.cpp */,
+				842A7DD5201F9DA0005F90FD /* Q_DynamicWorld2D.cpp */,
+			);
+			path = "Library Source";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		842A7DBD201F9CDD005F90FD /* Quantum2D */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 842A7DC7201F9CDD005F90FD /* Build configuration list for PBXNativeTarget "Quantum2D" */;
+			buildPhases = (
+				842A7DBA201F9CDD005F90FD /* Sources */,
+				842A7DBB201F9CDD005F90FD /* Frameworks */,
+				842A7DBC201F9CDD005F90FD /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Quantum2D;
+			productName = Quantum2D;
+			productReference = 842A7DBE201F9CDD005F90FD /* libQuantum2D.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		842A7DB6201F9CDD005F90FD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Polymer Games";
+				TargetAttributes = {
+					842A7DBD201F9CDD005F90FD = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 842A7DB9201F9CDD005F90FD /* Build configuration list for PBXProject "Quantum2D" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 842A7DB5201F9CDD005F90FD;
+			productRefGroup = 842A7DBF201F9CDD005F90FD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				842A7DBD201F9CDD005F90FD /* Quantum2D */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		842A7DBA201F9CDD005F90FD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				842A7E34201FA817005F90FD /* Q_CollisionTest2D.cpp in Sources */,
+				842A7E35201FA817005F90FD /* Q_PolyCollider.cpp in Sources */,
+				842A7E36201FA817005F90FD /* Q_CircleCollider.cpp in Sources */,
+				842A7DD6201F9DA0005F90FD /* Q_DynamicWorld2D.cpp in Sources */,
+				842A7E33201FA817005F90FD /* Q_AABBCollider2D.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		842A7DC5201F9CDD005F90FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		842A7DC6201F9CDD005F90FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		842A7DC8201F9CDD005F90FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_ENABLE_MODULES = NO;
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = ../../extern/DiamondUtils/include;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		842A7DC9201F9CDD005F90FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_ENABLE_MODULES = NO;
+				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = ../../extern/DiamondUtils/include;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		842A7DB9201F9CDD005F90FD /* Build configuration list for PBXProject "Quantum2D" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				842A7DC5201F9CDD005F90FD /* Debug */,
+				842A7DC6201F9CDD005F90FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		842A7DC7201F9CDD005F90FD /* Build configuration list for PBXNativeTarget "Quantum2D" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				842A7DC8201F9CDD005F90FD /* Debug */,
+				842A7DC9201F9CDD005F90FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 842A7DB6201F9CDD005F90FD /* Project object */;
+}
